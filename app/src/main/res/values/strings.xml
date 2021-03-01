@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">UniverseBuilder</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="universe_builder">UNIVERSE BUILDER</string>
+    <string name="todo">TODO</string>
+    <string name="nombre">Nombre</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="repetir_contrasena">Repetir contraseña</string>
+    <string name="espada">espada</string>
+    <string name="volver_atras">Volver atrás</string>
+</resources>
