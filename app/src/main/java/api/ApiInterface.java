@@ -10,16 +10,18 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-    @POST("email")
-    Call<List<usuario>> getUsuarios();
+    /*@POST("email")
+    Call<List<usuario>> getUsuarios();*/
 
-    @GET("existe_usuario.php")
+    @POST("add_usuario.php")
+    Call<String> insertaUsuario(@Query("nombre") String nombre, @Query("pass") String pass, @Query("email") String email);
+
+    /*@GET("existe_usuario.php")
     Call<List<usuario>> getUsuario(@Query("codigo") String codigo);
 
     @GET("get_usuario.php")
     Call<List<usuario>> getUsuarioDetail(@Query("codigo") String codigo);
 
-  /*
     @GET("get_dispositivo.php")
     Call <dispositivo> getDispo (@Query("codigo") String codigo);
 

@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceGenerator {
-    private final static String BASE_API_URL = "https://www.enteratepamplona.com/spadcare/ws/";
+    private final static String BASE_API_URL = "http://3.133.58.55/ws/";
     private static Retrofit retrofit = null;
     private static Gson gson = new GsonBuilder().create();
 

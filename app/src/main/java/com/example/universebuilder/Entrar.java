@@ -36,7 +36,7 @@ public class Entrar extends AppCompatActivity {
     }
 
     private void enviarDatos(String nombre,String psw){
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        /*ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
         Call<List<usuario>>call=apiInterface.getUsuario("00111111");
         call.enqueue(new Callback<List<usuario>>() {
             @Override
@@ -53,7 +53,7 @@ public class Entrar extends AppCompatActivity {
                  //ha fallado mostrar aviso de que es posible de que no tenga intertet
                  Log.e("tag", t.getMessage());
             }
-        });
+        });*/
     }
 
 }
