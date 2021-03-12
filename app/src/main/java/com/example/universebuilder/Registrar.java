@@ -2,6 +2,7 @@ package com.example.universebuilder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -47,6 +48,14 @@ public class Registrar extends AppCompatActivity {
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()){
                         System.out.println("Success");
+                        if(response.body().equals("-1")){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Ya existe una cuenta con este correo", Toast.LENGTH_LONG);
+                            toast.show();
+                        }else{
+                            Intent intent = new Intent(Registrar.this, menuPrincipal.class);
+                            startActivity(intent);
+                        }
+
                     }
                 }
 
@@ -55,6 +64,7 @@ public class Registrar extends AppCompatActivity {
                     Log.e("tag", t.getMessage());
                 }
             });
+
         }else{
             Toast toast = Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG);
             toast.show();

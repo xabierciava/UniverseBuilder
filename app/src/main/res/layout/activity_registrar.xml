@@ -63,22 +63,22 @@
         app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNombreRegistrar" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailRegistrar" />
 
     <Button
         android:id="@+id/botonInternoRegistrar"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:fontFamily="@font/arvo"
         android:text="@string/registrar"
         android:textColor="#000077"
         android:textSize="30sp"
         app:backgroundTint="#FF7700"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailRegistrar" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword2Registrar"
+        app:layout_constraintVertical_bias="0.371" />
 
     <EditText
         android:id="@+id/editTextPassword2Registrar"
@@ -109,9 +109,8 @@
         android:textColorHint="#969696"
         app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword2Registrar" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNombreRegistrar" />
 
     <TextView
         android:id="@+id/volver_atras"

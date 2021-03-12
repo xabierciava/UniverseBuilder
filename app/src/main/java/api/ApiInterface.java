@@ -13,7 +13,7 @@ public interface ApiInterface {
     /*@POST("email")
     Call<List<usuario>> getUsuarios();*/
 
-    @POST("add_usuario.php")
+    @GET("add_usuario.php")
     Call<String> insertaUsuario(@Query("nombre") String nombre, @Query("pass") String pass, @Query("email") String email);
 
     /*@GET("existe_usuario.php")
