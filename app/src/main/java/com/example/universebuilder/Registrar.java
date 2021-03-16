@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import api.ApiInterface;
 import api.ServiceGenerator;
-import model.usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +50,7 @@ public class Registrar extends AppCompatActivity {
                         if(response.body().equals("-1")){
                             Toast toast = Toast.makeText(getApplicationContext(), "Ya existe una cuenta con este correo", Toast.LENGTH_LONG);
                             toast.show();
+                            System.out.println("ya existe este correo");
                         }else{
                             Intent intent = new Intent(Registrar.this, menuPrincipal.class);
                             startActivity(intent);

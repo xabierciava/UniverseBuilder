@@ -52,16 +52,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNombreEntrar" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailEntrar" />
 
     <EditText
-        android:id="@+id/editTextNombreEntrar"
+        android:id="@+id/editTextEmailEntrar"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/nombre"
+        android:hint="E-mail"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="#969696"
