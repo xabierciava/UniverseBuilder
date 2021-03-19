@@ -13,7 +13,8 @@
         android:theme="@style/Theme.UniverseBuilder"
         android:usesCleartextTraffic="true">
         <activity android:name=".menuPrincipal"></activity>
-        <activity android:name=".Entrar" />
+        <activity android:name=".Entrar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Registrar" />
         <activity android:name=".MainActivity">
             <intent-filter>

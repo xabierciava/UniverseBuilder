@@ -25,8 +25,8 @@ public class Entrar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrar);
         TextView volver2 = (TextView)findViewById(R.id.volver_atras2);
-        EditText email = (EditText)findViewById(R.id.editTextEmailEntrar);
-        EditText psw = (EditText)findViewById(R.id.editTextPasswordEntrar);
+        EditText email = (EditText)findViewById(R.id.textInputEditTextEmailEntrar);
+        EditText psw = (EditText)findViewById(R.id.textInputEditTextPassEntrar);
         Button enviar = (Button)findViewById(R.id.botonInternoEntrar);
         volver2.setOnClickListener(v -> {
             finish();
