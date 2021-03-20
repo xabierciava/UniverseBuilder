@@ -9,4 +9,6 @@
     <string name="repetir_contrasena">Repetir contraseña</string>
     <string name="espada">espada</string>
     <string name="volver_atras">Volver atrás</string>
+    <string name="e_mail">E-mail</string>
+    <string name="contrase_a">Contraseña</string>
 </resources>

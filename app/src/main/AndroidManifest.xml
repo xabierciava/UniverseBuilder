@@ -15,7 +15,8 @@
         <activity android:name=".menuPrincipal"></activity>
         <activity android:name=".Entrar"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".Registrar" />
+        <activity android:name=".Registrar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
