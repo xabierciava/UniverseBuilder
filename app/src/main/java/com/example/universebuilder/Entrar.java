@@ -3,6 +3,7 @@ package com.example.universebuilder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -25,15 +26,9 @@ public class Entrar extends AppCompatActivity {
     EditText email;
     EditText psw;
 
-    public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9+._%-+]{1,256}" +
-                    "@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
-                    "(" +
-                    "." +
-                    "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
-                    ")+"
-    );
+    String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+
+    public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(regex);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +39,12 @@ public class Entrar extends AppCompatActivity {
         psw = (EditText)findViewById(R.id.textInputEditTextPassEntrar);
         Button enviar = (Button)findViewById(R.id.botonInternoEntrar);
         volver2.setOnClickListener(v -> {
+            Intent intent = new Intent(Entrar.this, MainActivity.class);
+            startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_down);
         });
+
 
         enviar.setOnClickListener(v -> enviarDatos(email.getText().toString(),psw.getText().toString()));
     }
@@ -67,8 +65,17 @@ public class Entrar extends AppCompatActivity {
                     String status = response.body().getStatus();
                     if (status.equals("OK")) {
                         Usuario user = response.body().getData();
+                        user.setPass(psw);
+                        SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("nombre",user.getNombre());
+                        editor.putString("email",user.getEmail());
+                        editor.putString("pass",psw);
+                        editor.putString("id",user.getId());
+                        editor.apply();
                         Intent intent = new Intent(Entrar.this, menuPrincipal.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast toast = Toast.makeText(Entrar.this, "No existe este usuario", Toast.LENGTH_LONG);
                         toast.show();

@@ -3,6 +3,7 @@ package com.example.universebuilder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -47,6 +48,8 @@ public class Registrar extends AppCompatActivity {
         Button enviar = (Button)findViewById(R.id.botonInternoRegistrar);
 
         volver.setOnClickListener(v -> {
+            Intent intent = new Intent(Registrar.this, MainActivity.class);
+            startActivity(intent);
             finish();
         });
         enviar.setOnClickListener(v -> {
@@ -71,8 +74,16 @@ public class Registrar extends AppCompatActivity {
                                 layEmail.setError("Ya existe una cuenta con este correo");
                                 System.out.println("ya existe este correo");
                             } else {
+                                SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("nombre",nombreStr);
+                                editor.putString("email",emailStr);
+                                editor.putString("pass",pswStr);
+                                editor.putString("id",response.body());
+                                editor.apply();
                                 Intent intent = new Intent(Registrar.this, menuPrincipal.class);
                                 startActivity(intent);
+                                finish();
                             }
 
                         }
