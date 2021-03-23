@@ -81,7 +81,7 @@ public class Registrar extends AppCompatActivity {
                                 editor.putString("pass",pswStr);
                                 editor.putString("id",response.body());
                                 editor.apply();
-                                Intent intent = new Intent(Registrar.this, menuPrincipal.class);
+                                Intent intent = new Intent(Registrar.this, MenuPrincipal.class);
                                 startActivity(intent);
                                 finish();
                             }

@@ -73,7 +73,7 @@ public class Entrar extends AppCompatActivity {
                         editor.putString("pass",psw);
                         editor.putString("id",user.getId());
                         editor.apply();
-                        Intent intent = new Intent(Entrar.this, menuPrincipal.class);
+                        Intent intent = new Intent(Entrar.this, MenuPrincipal.class);
                         startActivity(intent);
                         finish();
                     } else {

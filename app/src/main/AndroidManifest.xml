@@ -12,11 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UniverseBuilder"
         android:usesCleartextTraffic="true">
-        <activity android:name=".menuPrincipal"></activity>
-        <activity android:name=".Entrar"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".Registrar"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ListaExplorar"></activity>
+        <activity android:name=".ListaMisMundos" />
+        <activity android:name=".MenuPrincipal" />
+        <activity
+            android:name=".Entrar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Registrar"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

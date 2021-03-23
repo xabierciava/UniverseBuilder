@@ -12,7 +12,6 @@ import android.widget.Toast;
 import api.ApiInterface;
 import api.ServiceGenerator;
 import model.PaqueteUsuario;
-import model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             entrarDirectamente(correo,password);
         }
         setContentView(R.layout.activity_main);
-        Button boton_registrar = (Button) findViewById(R.id.boton_registrar);
+        Button boton_registrar = (Button) findViewById(R.id.boton_explorar);
         boton_registrar.setOnClickListener(v -> abrirRegistrar());
         Button boton_entrar = (Button) findViewById(R.id.boton_entrar);
         boton_entrar.setOnClickListener(v -> abrirEntrar());
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Success");
                 String status = response.body().getStatus();
                 if (status.equals("OK")) {
-                    Intent intent = new Intent(MainActivity.this, menuPrincipal.class);
+                    Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
                     startActivity(intent);
                     finish();
                 } else {
