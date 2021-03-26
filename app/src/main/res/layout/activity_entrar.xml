@@ -65,19 +65,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-30dp"
         android:hint="@string/contrase_a"
+        android:textColorHint="@color/textos"
+        app:endIconMode="password_toggle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outlinedTextFieldEmailEntrar"
-        app:endIconMode="password_toggle"
-        app:layout_constraintVertical_bias="0.11">
+        app:layout_constraintVertical_bias="0.11"
+        app:passwordToggleTint="@color/textos">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextPassEntrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textColor="@color/textos" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -86,19 +89,21 @@
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:hint="@string/e_mail"
+        android:textColorHint="@color/textos"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.087"
-        app:errorEnabled="true">
+        app:layout_constraintVertical_bias="0.087">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextEmailEntrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:textColor="@color/textos" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

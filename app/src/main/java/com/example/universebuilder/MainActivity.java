@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         String correo = prefs.getString("email","");
         String password = prefs.getString("pass","");
         if (!correo.equals("")){
-            entrarDirectamente(correo,password);
+            //entrarDirectamente(correo,password);
         }
         setContentView(R.layout.activity_main);
         Button boton_registrar = (Button) findViewById(R.id.boton_explorar);

@@ -41,6 +41,7 @@
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:hint="@string/nombre"
+        android:textColorHint="@color/textos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -52,7 +53,9 @@
             android:id="@+id/textInputEditTextNombreRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/textos"
+            android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -61,6 +64,7 @@
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:hint="@string/e_mail"
+        android:textColorHint="@color/textos"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +76,8 @@
             android:id="@+id/textInputEditTextEmailRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/textos" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -83,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-30dp"
         android:hint="@string/contrase_a"
+        android:textColorHint="@color/textos"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +101,8 @@
             android:id="@+id/textInputEditTextPassRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/textos" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -104,6 +111,7 @@
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:hint="@string/contrase_a"
+        android:textColorHint="@color/textos"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,7 +124,8 @@
             android:id="@+id/textInputEditTextPass2Registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/textos" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
