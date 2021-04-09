@@ -1,7 +1,9 @@
 package com.example.universebuilder;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,13 +27,27 @@ public class MainActivity extends AppCompatActivity {
         String correo = prefs.getString("email","");
         String password = prefs.getString("pass","");
         if (!correo.equals("")){
-            //entrarDirectamente(correo,password);
+            entrarDirectamente(correo,password);
         }
         setContentView(R.layout.activity_main);
         Button boton_registrar = (Button) findViewById(R.id.boton_explorar);
         boton_registrar.setOnClickListener(v -> abrirRegistrar());
         Button boton_entrar = (Button) findViewById(R.id.boton_entrar);
         boton_entrar.setOnClickListener(v -> abrirEntrar());
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("¿Seguro que quieres salir?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     public void entrarDirectamente(String emailStr,String pswStr){

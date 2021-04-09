@@ -31,7 +31,7 @@ public class MenuPrincipal extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setMessage("¿Seguro que quieres salir?")
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         finish();
                     }
