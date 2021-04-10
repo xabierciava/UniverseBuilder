@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UniverseBuilder"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListaExplorar"></activity>
+        <activity android:name=".NuevoUniverso"></activity>
+        <activity android:name=".EditarUniverso" />
+        <activity android:name=".ListaExplorar" />
         <activity android:name=".ListaMisMundos" />
         <activity android:name=".MenuPrincipal" />
         <activity

@@ -15,4 +15,9 @@ public interface ApiInterface {
     @GET("get_usuario.php")
     Call<PaqueteUsuario> getUsuario(@Query("email") String email, @Query("pass") String pass);
 
+    @GET("cambiar_nombre.php")
+    Call<String> cambiaNombre(@Query("id") String id, @Query("nombre") String nombre);
+
+    @GET("cambiar_pass.php")
+    Call<String> cambiaPass(@Query("id") String id, @Query("pass") String pass);
 }

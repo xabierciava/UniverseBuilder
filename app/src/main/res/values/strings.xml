@@ -15,4 +15,9 @@
     <string name="navigation_drawer_close">Cerrar drawer de navegación</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descripcion_crear_uni">Crear nuevo universo</string>
+    <string name="cambiar_nombre">CAMBIAR NOMBRE</string>
+    <string name="cambiar_pass">CAMBIAR CONTRASEÑA</string>
+    <string name="nombre_correcto">Nombre cambiado correctamente</string>
+    <string name="passCorrecta">Contraseña cambiada correctamente</string>
 </resources>
