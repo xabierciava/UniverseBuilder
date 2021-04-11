@@ -60,12 +60,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outlinedTextFieldPassEntrar"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/BlancoTextInputLayoutStyle"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-30dp"
         android:hint="@string/contrase_a"
-        android:textColorHint="@color/textos"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,11 +84,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outlinedTextFieldEmailEntrar"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/BlancoTextInputLayoutStyle"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:hint="@string/e_mail"
-        android:textColorHint="@color/textos"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

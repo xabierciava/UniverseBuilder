@@ -30,12 +30,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextFieldEditarNombre"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/BlancoTextInputLayoutStyle"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:hint="@string/nombre"
-            android:textColorHint="@color/textos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,12 +50,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextFieldEditarPass"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/BlancoTextInputLayoutStyle"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:hint="@string/contrase_a"
-            android:textColorHint="@color/textos"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,12 +73,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextFieldEditarPass2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/BlancoTextInputLayoutStyle"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:hint="@string/repetir_contrasena"
-            android:textColorHint="@color/textos"
             app:endIconMode="password_toggle"
             app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"

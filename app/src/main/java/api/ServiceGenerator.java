@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
     private final static String BASE_API_URL = "http://3.133.58.55/ws/";
     private static Retrofit retrofit = null;
-    private static Gson gson = new GsonBuilder().create();
+    private static Gson gson = new GsonBuilder().setLenient().create();
 
     private static HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
     private static OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder()

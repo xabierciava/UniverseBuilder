@@ -2,5 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/arvo</item>
+        <item>@font/coming_soon</item>
+        <item>@font/flamenco</item>
     </array>
 </resources>

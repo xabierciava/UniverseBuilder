@@ -1,10 +1,14 @@
 package api;
 
+import java.util.List;
+
 import model.PaqueteUsuario;
-import model.Usuario;
+import model.Universo;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -20,4 +24,7 @@ public interface ApiInterface {
 
     @GET("cambiar_pass.php")
     Call<String> cambiaPass(@Query("id") String id, @Query("pass") String pass);
+
+    @POST("add_universo.php")
+    Call<String> insertaUniverso(@Body Universo universo);
 }
