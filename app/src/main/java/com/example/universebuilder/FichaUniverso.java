@@ -3,13 +3,22 @@ package com.example.universebuilder;
 public class FichaUniverso {
     private String color;
     private String universo;
-    private String creador;
 
-    public FichaUniverso(String color, String universo, String creador) {
+
+    private String descripcion;
+    private String id;
+
+    public FichaUniverso(String color, String universo, String descripcion, String id) {
+        this.id= id;
         this.color = color;
         this.universo = universo;
-        this.creador = creador;
+        this.descripcion = descripcion;
     }
+
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getColor() {
         return color;
@@ -27,11 +36,11 @@ public class FichaUniverso {
         this.universo = universo;
     }
 
-    public String getCreador() {
-        return creador;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCreador(String creador) {
-        this.creador = creador;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

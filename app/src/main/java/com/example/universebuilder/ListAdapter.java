@@ -3,7 +3,6 @@ package com.example.universebuilder;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView iconImage;
-        TextView universo,creador;
+        TextView universo, descripcion;
         LinearLayout fondo;
         OnUniverseListener onUniverseListener;
 
@@ -61,7 +60,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             super(itemView);
             iconImage = itemView.findViewById(R.id.iconImageView);
             universo = itemView.findViewById(R.id.universeTextView);
-            creador = itemView.findViewById(R.id.creatorTextView);
+            descripcion = itemView.findViewById(R.id.descripcionTextView);
             fondo = itemView.findViewById(R.id.linearLayoutGeneral);
             this.onUniverseListener = onUniverseListener;
             itemView.setOnClickListener(this);
@@ -69,7 +68,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         void bindData(final FichaUniverso item){
             universo.setText(item.getUniverso());
-            creador.setText(item.getCreador());
+            descripcion.setText(item.getDescripcion());
             fondo.setBackgroundColor(Color.parseColor(item.getColor()));
         }
 

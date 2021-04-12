@@ -1,12 +1,14 @@
 package com.example.universebuilder;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,15 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import api.ApiInterface;
+import api.ServiceGenerator;
+import model.Universo;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,9 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
     List<FichaUniverso> elements;
     RecyclerView recyclerView;
     ImageView imagenPlaneta;
+    List<Universo> listaUniversos;
+    ListAdapter listAdapter;
+    View view;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,13 +84,9 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        init();
-        View view = inflater.inflate(R.layout.fragment_lista, container, false);
+
+        view = inflater.inflate(R.layout.fragment_lista, container, false);
         recyclerView = view.findViewById(R.id.listRecyclerView);
-        ListAdapter listAdapter = new ListAdapter(elements, view.getContext(),this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(listAdapter);
         imagenPlaneta = view.findViewById(R.id.imagen_planeta_fab);
         imagenPlaneta.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), NuevoUniverso.class);
@@ -86,21 +96,47 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
         return view;
     }
 
-    public void init(){
-        elements = new ArrayList<>();
-        elements.add(new FichaUniverso("#A8913E","Revo", "Idoia Cía"));
-        elements.add(new FichaUniverso("#F5D973","Ventalia", "Xabier Cía"));
-        elements.add(new FichaUniverso("#FFD12D","Juego de tronos", "George RR Martin"));
-        elements.add(new FichaUniverso("#2D39A8","Star Trek", "Spock"));
-        elements.add(new FichaUniverso("#737FF5","Star Wars", "George Lucas"));
-        elements.add(new FichaUniverso("#737FF5","Star Wars", "George Lucas"));
-        elements.add(new FichaUniverso("#737FF5","Star Wars", "George Lucas"));
-        elements.add(new FichaUniverso("#737FF5","Star Wars", "George Lucas"));
+    @Override
+    public void onResume() {
+        super.onResume();
+        refrescarLista();
+    }
+
+    public void refrescarLista(){
+        elements=new ArrayList<>();
+        SharedPreferences prefs = getActivity().getSharedPreferences("sesion", MODE_PRIVATE);
+        String id = prefs.getString("id","");
+        listaUniversos = new ArrayList<>();
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<List<Universo>> call = apiInterface.getUniversoUsuario(id);
+        call.enqueue(new Callback<List<Universo>>() {
+            @Override
+            public void onResponse(Call<List<Universo>> call, Response<List<Universo>> response) {
+                if(response.isSuccessful()){
+                    listaUniversos.addAll(response.body());
+                    elements = new ArrayList<>();
+                    for (Universo universo: listaUniversos){
+                        elements.add(new FichaUniverso("#6F3D99",universo.getNombre(),universo.getDescripcion(),universo.getId()));
+                        listAdapter = new ListAdapter(elements, view.getContext(),ListaFragment.this);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        recyclerView.setAdapter(listAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Universo>> call, Throwable t) {
+                Log.e("tag", t.getMessage());
+            }
+        });
     }
 
     @Override
     public void onUniverseClick(int position) {
         FichaUniverso universo = elements.get(position);
-        System.out.println("||||||||||||||||||||"+universo.getUniverso()+"|||||||||||||||||||||");
+        Intent intent = new Intent(getActivity(),EditarUniverso.class);
+        intent.putExtra("idUniverso",universo.getId());
+        startActivity(intent);
     }
 }

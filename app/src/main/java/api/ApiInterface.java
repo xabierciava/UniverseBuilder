@@ -7,6 +7,8 @@ import model.Universo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -27,4 +29,7 @@ public interface ApiInterface {
 
     @POST("add_universo.php")
     Call<String> insertaUniverso(@Body Universo universo);
+
+    @GET("get_universos_usuario.php")
+    Call<List<Universo>> getUniversoUsuario(@Query("usuario") String id);
 }

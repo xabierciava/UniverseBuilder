@@ -102,33 +102,36 @@ public class NuevoUniverso extends AppCompatActivity {
         String nombre = editTextNombre.getText().toString();
         String descripcion = editTextDescripcion.getText().toString();
         String visibilidad = switchMaterial.isChecked()?"publico":"privado";
-        for (int i = 0; i < chipGroup.getChildCount();i++){
-            Chip chip = (Chip) chipGroup.getChildAt(i);
-            listaEtiquetas.add(chip.getText().toString());
-        }
-        SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
-        String creador = prefs.getString("id","");
-        Universo universo = new Universo("-1",nombre,descripcion,creador,visibilidad,listaEtiquetas);
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<String> call = apiInterface.insertaUniverso(universo);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
-                    System.out.println("Success");
-                    System.out.println(response.body());
-                    Intent intent = new Intent(NuevoUniverso.this, EditarUniverso.class);
-                    startActivity(intent);
-                    finish();
+        int maxCharsDesc=150;
+        int maxCharsNom=30;
+        if(descripcion.length()<= maxCharsDesc && nombre.length()<=maxCharsNom) {
+            for (int i = 0; i < chipGroup.getChildCount(); i++) {
+                Chip chip = (Chip) chipGroup.getChildAt(i);
+                listaEtiquetas.add(chip.getText().toString());
+            }
+            SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
+            String creador = prefs.getString("id", "");
+            Universo universo = new Universo("-1", nombre, descripcion, creador, visibilidad, listaEtiquetas);
+            ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+            Call<String> call = apiInterface.insertaUniverso(universo);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()) {
+                        System.out.println("Success");
+                        System.out.println(response.body());
+                        Intent intent = new Intent(NuevoUniverso.this, EditarUniverso.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.e("tag", t.getMessage());
-            }
-        });
-
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("tag", t.getMessage());
+                }
+            });
+        }
     }
 
 }
