@@ -37,4 +37,7 @@
     <string name="avisoNombre">El nombre no puede estar vacío</string>
     <string name="titulo">Título</string>
     <string name="contenido">contenido</string>
+    <string name="borrar">Borrar</string>
+    <string name="pie_de_foto">Pie de foto(Opcional)</string>
+    <string name="imagen_fail">Error subiendo la imagen</string>
 </resources>

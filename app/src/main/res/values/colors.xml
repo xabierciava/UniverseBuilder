@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="fondos">#FF000032</color>
     <color name="textos">#FFBDBDBD</color>
+    <color name="fondo_boton">#FFFF7700</color>
+    <color name="texto_boton">#FF000077</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFFFFFFF</color>
 </resources>

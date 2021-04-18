@@ -23,7 +23,7 @@ public class EditarUniverso extends AppCompatActivity {
     BottomNavigationView navigation;
     Universo universo;
     Boolean flagNueva=false;
-
+    Fragment ajustes,nueva,editar;
     private enum NavigationFragment{
         Ajustes,
         Nueva,
@@ -52,7 +52,9 @@ public class EditarUniverso extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_universo);
 
-        
+        ajustes= new UniversoAjustesFragment();
+        nueva = new NuevaPaginaFragment();
+        editar = new EditarPaginasFragment();
 
         navigation = findViewById(R.id.bottom_navigation_editor);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -71,13 +73,13 @@ public class EditarUniverso extends AppCompatActivity {
         Fragment fragment = null;
         switch (value) {
             case Ajustes:
-                fragment = new UniversoAjustesFragment();
+                fragment = ajustes;
                 break;
             case Nueva:
-                fragment = new NuevaPaginaFragment();
+                fragment = nueva;
                 break;
             case Editar:
-                fragment= new EditarPaginasFragment();
+                fragment= editar;
                 break;
         }
         if(fragment!=null)

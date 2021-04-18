@@ -10,6 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <LinearLayout
+            android:id="@+id/linearTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_alignParentTop="true">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldTitulo"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/titulo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/boton_publicar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/fondo_boton"
+                android:fontFamily="@font/arvo"
+                android:textColor="@color/texto_boton"
+                android:text="Publicar"
+                app:backgroundTint="@color/fondo_boton" />
+
+        </LinearLayout>
+
+
+
         <com.example.universebuilder.markeditor.EditorControlBar
             android:id="@+id/controlBar"
             android:layout_alignParentBottom="true"
@@ -18,16 +56,20 @@
 
 
         <ScrollView
-            android:layout_above="@+id/controlBar"
+            android:id="@+id/scrollEditor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/controlBar"
+            android:layout_below="@+id/linearTitulo"
+>
 
             <com.example.universebuilder.markeditor.MarkDEditor
                 android:id="@+id/mdEditor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </ScrollView>
+
 
 
 

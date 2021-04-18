@@ -11,9 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.universebuilder.markeditor.EditorControlBar;
@@ -21,6 +23,7 @@ import com.example.universebuilder.markeditor.MarkDEditor;
 import com.example.universebuilder.markeditor.datatype.DraftDataItemModel;
 import com.example.universebuilder.markeditor.models.DraftModel;
 import com.example.universebuilder.markeditor.utilities.FilePathUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,7 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
 
     EditorControlBar editorControlBar;
     MarkDEditor markDEditor;
+    Button publicar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -102,6 +106,8 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
 
         markDEditor.loadDraft(getDraftContent());
         editorControlBar.setEditor(markDEditor);
+        publicar = view.findViewById(R.id.boton_publicar);
+        publicar.setOnClickListener(v -> publicarPagina());
     }
 
     private DraftModel getDraftContent() {
@@ -159,6 +165,12 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 }
                 break;
         }
+    }
+
+    public void publicarPagina(){
+        DraftModel dm = markDEditor.getDraft();
+        String json = new Gson().toJson(dm);
+        Log.d("MarkDEditor", json);
     }
 
     public void addImage(String filePath) {
