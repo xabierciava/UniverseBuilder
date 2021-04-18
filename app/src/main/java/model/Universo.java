@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Universo {
+public class Universo implements Serializable {
     private String id;
     private String nombre;
     private String descripcion;
@@ -10,7 +11,7 @@ public class Universo {
     private String visibilidad;
     List<String> listaEtiquetas;
 
-    public Universo(String id, String nombre, String descripcion, String creador, String visibilidad, List<String> listaEtiquetas) {
+    public Universo(String id, String nombre, String descripcion, String creador, String visibilidad, List<String> listaEtiquetas){
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

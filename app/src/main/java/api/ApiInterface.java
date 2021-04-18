@@ -5,12 +5,16 @@ import java.util.List;
 import model.PaqueteUsuario;
 import model.Universo;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -32,4 +36,18 @@ public interface ApiInterface {
 
     @GET("get_universos_usuario.php")
     Call<List<Universo>> getUniversoUsuario(@Query("usuario") String id);
+
+    @GET("get_universo_id.php")
+    Call<Universo> getUniversoId(@Query("id") String id);
+
+    @GET("get_etiquetas_id.php")
+    Call<List<String>> getEtiquetasId(@Query("id") String id);
+
+    @POST("editar_universo.php")
+    Call<String> editarUniverso(@Body Universo universo);
+
+    @Multipart
+    @POST("upload.php")
+    Call<ServerResponse> uploadFile(@Part MultipartBody.Part file, @Part("file") RequestBody name);
+
 }

@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceGenerator {
-    private final static String BASE_API_URL = "http://3.133.58.55/ws/";
+    private final static String BASE_API_URL = "https://universebuilder.live/ws/";
     private static Retrofit retrofit = null;
     private static Gson gson = new GsonBuilder().setLenient().create();
 
@@ -33,4 +33,6 @@ public class ServiceGenerator {
         }
         return retrofit.create(serviceClass);
     }
+
+
 }

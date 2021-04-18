@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +39,6 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
     ImageView imagenPlaneta;
     List<Universo> listaUniversos;
     ListAdapter listAdapter;
-    View view;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,26 +84,20 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        view = inflater.inflate(R.layout.fragment_lista, container, false);
+        elements = new ArrayList<>();
+        View view = inflater.inflate(R.layout.fragment_lista, container, false);
         recyclerView = view.findViewById(R.id.listRecyclerView);
+        init(view);
         imagenPlaneta = view.findViewById(R.id.imagen_planeta_fab);
         imagenPlaneta.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), NuevoUniverso.class);
-            startActivity(intent);
+            startActivityForResult(intent,1);
         });
 
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        refrescarLista();
-    }
-
-    public void refrescarLista(){
-        elements=new ArrayList<>();
+    public void init(View view){
         SharedPreferences prefs = getActivity().getSharedPreferences("sesion", MODE_PRIVATE);
         String id = prefs.getString("id","");
         listaUniversos = new ArrayList<>();
@@ -114,14 +108,13 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
             public void onResponse(Call<List<Universo>> call, Response<List<Universo>> response) {
                 if(response.isSuccessful()){
                     listaUniversos.addAll(response.body());
-                    elements = new ArrayList<>();
                     for (Universo universo: listaUniversos){
                         elements.add(new FichaUniverso("#6F3D99",universo.getNombre(),universo.getDescripcion(),universo.getId()));
-                        listAdapter = new ListAdapter(elements, view.getContext(),ListaFragment.this);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                        recyclerView.setAdapter(listAdapter);
                     }
+                    listAdapter = new ListAdapter(elements, requireContext(),ListaFragment.this);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setAdapter(listAdapter);
                 }
             }
 
@@ -138,5 +131,15 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
         Intent intent = new Intent(getActivity(),EditarUniverso.class);
         intent.putExtra("idUniverso",universo.getId());
         startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && data!=null){
+            Universo universo = (Universo)data.getSerializableExtra("universoNuevo");
+            elements.add(new FichaUniverso("#6F3D99",universo.getNombre(),universo.getDescripcion(),universo.getId()));
+            listAdapter.notifyDataSetChanged();
+        }
     }
 }

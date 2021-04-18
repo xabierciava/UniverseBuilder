@@ -67,7 +67,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
 
         void bindData(final FichaUniverso item){
-            universo.setText(item.getUniverso());
+            universo.setText(item.getNombre());
             descripcion.setText(item.getDescripcion());
             fondo.setBackgroundColor(Color.parseColor(item.getColor()));
         }

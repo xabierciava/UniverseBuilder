@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NuevaPaginaFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.universebuilder.markeditor.EditorControlBar
+            android:id="@+id/controlBar"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+
+        <ScrollView
+            android:layout_above="@+id/controlBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.universebuilder.markeditor.MarkDEditor
+                android:id="@+id/mdEditor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </ScrollView>
+
+
+
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>

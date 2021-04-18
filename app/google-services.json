@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "805885863635",
+    "project_id": "universebuilder-d5262",
+    "storage_bucket": "universebuilder-d5262.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805885863635:android:bb3d9a2c8965c9c4a3d626",
+        "android_client_info": {
+          "package_name": "com.example.universebuilder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805885863635-s46uh4dohaor1r52h047mmu95qmjcv9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAxICNHqGBS683KBv3HUXQzEgP9eWgnMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805885863635-s46uh4dohaor1r52h047mmu95qmjcv9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

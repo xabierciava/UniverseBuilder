@@ -30,4 +30,11 @@
     <string name="crear_universo">CREAR UNIVERSO</string>
     <string name="crear_etiqueta">crear etiqueta</string>
     <string name="avisoEtiquetasLongitud">La etiqueta es demasiado larga</string>
+    <string name="editar_universo">universo</string>
+    <string name="boton_editar_universo">EDITAR UNIVERSO</string>
+    <string name="crear_pagina">nueva página</string>
+    <string name="editar_paginas">editar páginas</string>
+    <string name="avisoNombre">El nombre no puede estar vacío</string>
+    <string name="titulo">Título</string>
+    <string name="contenido">contenido</string>
 </resources>

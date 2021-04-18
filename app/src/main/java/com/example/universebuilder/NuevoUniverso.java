@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +32,7 @@ public class NuevoUniverso extends AppCompatActivity {
     TextInputLayout textFieldLabels;
     EditText editTextLabels;
     ChipGroup chipGroup;
-    TextView textViewLabels;
+    TextView textViewAviso;
     Button botonCrearUniverso;
     EditText editTextNombre,editTextDescripcion;
     SwitchMaterial switchMaterial;
@@ -44,17 +43,17 @@ public class NuevoUniverso extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_universo);
 
-        textFieldLabels = findViewById(R.id.outlinedTextField);
-        editTextLabels = findViewById(R.id.textInputEditText);
-        chipGroup = findViewById(R.id.chipGroup);
-        textViewLabels = findViewById(R.id.avisoEtiquetas);
-        botonCrearUniverso = findViewById(R.id.botonCrearUniverso);
-        editTextNombre = findViewById(R.id.textInputEditTextNombreUniverso);
-        editTextDescripcion= findViewById(R.id.textInputEditTextDescripcionUniverso);
-        switchMaterial = findViewById(R.id.switchMaterial);
+        textFieldLabels = findViewById(R.id.outlinedTextFieldEtiquetasEditar);
+        editTextLabels = findViewById(R.id.textInputEditTextEtiquetasEditar);
+        chipGroup = findViewById(R.id.chipGroupEditar);
+        textViewAviso = findViewById(R.id.texto_aviso_editar);
+        botonCrearUniverso = findViewById(R.id.botonEditarUniverso);
+        editTextNombre = findViewById(R.id.textInputEditTextNombreUniversoEditar);
+        editTextDescripcion= findViewById(R.id.textInputEditTextDescripcionUniversoEditar);
+        switchMaterial = findViewById(R.id.switchMaterialEditar);
         listaEtiquetas= new ArrayList<>();
 
-        textViewLabels.setVisibility(View.INVISIBLE);
+        textViewAviso.setVisibility(View.INVISIBLE);
 
         textFieldLabels.setEndIconOnClickListener(v -> addChip());
         editTextLabels.setOnKeyListener((v, keyCode, event) -> {
@@ -70,30 +69,30 @@ public class NuevoUniverso extends AppCompatActivity {
     }
 
     public void addChip() {
-        int maxChips = 4;
+        int maxChips = 6;
         int maxChars = 20;
         if (!editTextLabels.getText().toString().equals("")) {
             if (editTextLabels.getText().toString().length() <= maxChars) {
                 if (chipGroup.getChildCount() < maxChips) {
-                    textViewLabels.setVisibility(View.INVISIBLE);
+                    textViewAviso.setVisibility(View.INVISIBLE);
                     Chip chip = new Chip(this);
                     chip.setText(editTextLabels.getText().toString());
                     chip.setCloseIconVisible(true);
                     chip.setOnCloseIconClickListener(v1 -> {
                         chipGroup.removeView(chip);
                         if (chipGroup.getChildCount() < maxChips) {
-                            textViewLabels.setVisibility(View.INVISIBLE);
+                            textViewAviso.setVisibility(View.INVISIBLE);
                         }
                     });
                     chipGroup.addView(chip);
                     editTextLabels.setText("");
                 } else {
-                    textViewLabels.setText(R.string.avisoEtiquetas);
-                    textViewLabels.setVisibility(View.VISIBLE);
+                    textViewAviso.setText(R.string.avisoEtiquetas);
+                    textViewAviso.setVisibility(View.VISIBLE);
                 }
             }else{
-                textViewLabels.setText(R.string.avisoEtiquetasLongitud);
-                textViewLabels.setVisibility(View.VISIBLE);
+                textViewAviso.setText(R.string.avisoEtiquetasLongitud);
+                textViewAviso.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -104,33 +103,45 @@ public class NuevoUniverso extends AppCompatActivity {
         String visibilidad = switchMaterial.isChecked()?"publico":"privado";
         int maxCharsDesc=150;
         int maxCharsNom=30;
-        if(descripcion.length()<= maxCharsDesc && nombre.length()<=maxCharsNom) {
-            for (int i = 0; i < chipGroup.getChildCount(); i++) {
-                Chip chip = (Chip) chipGroup.getChildAt(i);
-                listaEtiquetas.add(chip.getText().toString());
+        if(!nombre.equals("")) {
+            if(textViewAviso.getText().toString().equals(R.string.avisoNombre)) {
+                textViewAviso.setText("");
+                textViewAviso.setVisibility(View.INVISIBLE);
             }
-            SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
-            String creador = prefs.getString("id", "");
-            Universo universo = new Universo("-1", nombre, descripcion, creador, visibilidad, listaEtiquetas);
-            ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-            Call<String> call = apiInterface.insertaUniverso(universo);
-            call.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if (response.isSuccessful()) {
-                        System.out.println("Success");
-                        System.out.println(response.body());
-                        Intent intent = new Intent(NuevoUniverso.this, EditarUniverso.class);
-                        startActivity(intent);
-                        finish();
+            if (descripcion.length() <= maxCharsDesc && nombre.length() <= maxCharsNom) {
+                for (int i = 0; i < chipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) chipGroup.getChildAt(i);
+                    listaEtiquetas.add(chip.getText().toString());
+                }
+                SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
+                String creador = prefs.getString("id", "");
+                Universo universo = new Universo("-1", nombre, descripcion, creador, visibilidad, listaEtiquetas);
+                ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+                Call<String> call = apiInterface.insertaUniverso(universo);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response.isSuccessful()) {
+                            System.out.println("Success");
+                            Intent intent = new Intent(NuevoUniverso.this, EditarUniverso.class);
+                            intent.putExtra("idUniverso",response.body());
+                            startActivity(intent);
+                            Intent devolver = new Intent();
+                            devolver.putExtra("universoNuevo", universo);
+                            setResult(2, devolver);
+                            finish();
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    Log.e("tag", t.getMessage());
-                }
-            });
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.e("tag", t.getMessage());
+                    }
+                });
+            }
+        }else{
+            textViewAviso.setText(R.string.avisoNombre);
+            textViewAviso.setVisibility(View.VISIBLE);
         }
     }
 
