@@ -22,12 +22,36 @@ public class EditarUniverso extends AppCompatActivity {
     String idUniverso;
     BottomNavigationView navigation;
     Universo universo;
+
+    public Fragment getNueva() {
+        return nueva;
+    }
+
+    public void setNueva(Fragment nueva) {
+        this.nueva = nueva;
+    }
+
     Boolean flagNueva=false;
     Fragment ajustes,nueva,editar;
-    private enum NavigationFragment{
+
+    public enum NavigationFragment{
         Ajustes,
         Nueva,
         Editar
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("¿Quieres abandonar el universo?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -69,7 +93,7 @@ public class EditarUniverso extends AppCompatActivity {
     }
 
 
-    private void ChangeFragment(NavigationFragment value){
+    public void ChangeFragment(NavigationFragment value){
         Fragment fragment = null;
         switch (value) {
             case Ajustes:

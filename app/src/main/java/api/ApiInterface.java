@@ -2,6 +2,7 @@ package api;
 
 import java.util.List;
 
+import model.Pagina;
 import model.PaqueteUsuario;
 import model.Universo;
 
@@ -49,5 +50,8 @@ public interface ApiInterface {
     @Multipart
     @POST("upload.php")
     Call<ServerResponse> uploadFile(@Part MultipartBody.Part file, @Part("file") RequestBody name);
+
+    @POST("add_pagina.php")
+    Call<String> insertaPagina(@Body Pagina pagina);
 
 }

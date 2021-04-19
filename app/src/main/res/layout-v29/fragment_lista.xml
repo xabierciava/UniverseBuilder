@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondos"
-    tools:context=".EditarPaginasFragment">
+    tools:context=".ListaFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerEditar"
+            android:id="@+id/listRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="1dp"
@@ -21,8 +20,19 @@
             android:layout_marginRight="1dp"
             android:layout_marginBottom="1dp" />
 
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imagen_planeta_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gif_planeta_plus"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"/>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
 </FrameLayout>

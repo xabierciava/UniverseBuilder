@@ -149,6 +149,10 @@ public class UniversoAjustesFragment extends Fragment {
                                         Chip chip = new Chip(getContext());
                                         chip.setText(etiqueta);
                                         chip.setCloseIconVisible(true);
+                                        chip.setChipBackgroundColorResource(R.color.naranja_claro);
+                                        chip.setCloseIconTintResource(R.color.fondos);
+                                        int fondos = getResources().getColor(R.color.fondos);
+                                        chip.setTextColor(fondos);
                                         chip.setOnCloseIconClickListener(cerrarChip);
                                         chipGroup.addView(chip);
                                     }else{
@@ -212,6 +216,10 @@ public class UniversoAjustesFragment extends Fragment {
                     Chip chip = new Chip(requireContext());
                     chip.setText(editTextLabels.getText().toString());
                     chip.setCloseIconVisible(true);
+                    chip.setCloseIconTintResource(R.color.fondos);
+                    chip.setChipBackgroundColorResource(R.color.naranja_claro);
+                    int fondos = getResources().getColor(R.color.fondos);
+                    chip.setTextColor(fondos);
                     chip.setOnCloseIconClickListener(cerrarChip);
                     chipGroup.addView(chip);
                     editTextLabels.setText("");

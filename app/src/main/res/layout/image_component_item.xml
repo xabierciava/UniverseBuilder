@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:background="#096093"
+        android:background="@color/fondo_editor"
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,9 @@
         android:id="@+id/caption"
         android:padding="8dp"
         android:layout_below="@+id/image"
-        android:background="@drawable/text_input_bg"
+        android:background="@color/fondo_editor"
+        android:textColor="@color/fondos"
+        android:textColorHint="@color/fondos"
         android:gravity="center_horizontal"
         android:textSize="14sp"
         android:paddingLeft="16dp"
@@ -27,6 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
         android:hint="@string/pie_de_foto" />
 
     <ImageView

@@ -36,7 +36,7 @@
             android:id="@+id/toolbar_mis_mundos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#9A9A9A"
+            android:background="@color/coral"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

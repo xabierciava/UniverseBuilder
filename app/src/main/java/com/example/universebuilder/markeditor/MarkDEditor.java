@@ -543,6 +543,7 @@ public class MarkDEditor extends MarkDCore implements
         return newDraft;
     }
 
+
     /**
      * @return list of images inserted.
      */
@@ -565,5 +566,9 @@ public class MarkDEditor extends MarkDCore implements
 
     public interface EditorFocusReporter {
         void onFocusedViewHas(int mode, int textComponentStyle);
+    }
+
+    public void cleanEditor(){
+        draftManager = new DraftManager();
     }
 }

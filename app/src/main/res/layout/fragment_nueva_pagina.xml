@@ -11,48 +11,11 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:id="@+id/linearTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_alignParentTop="true">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldTitulo"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/titulo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/boton_publicar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/fondo_boton"
-                android:fontFamily="@font/arvo"
-                android:textColor="@color/texto_boton"
-                android:text="Publicar"
-                app:backgroundTint="@color/fondo_boton" />
-
-        </LinearLayout>
-
-
-
         <com.example.universebuilder.markeditor.EditorControlBar
             android:id="@+id/controlBar"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true" />
 
 
         <ScrollView
@@ -60,22 +23,113 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/controlBar"
-            android:layout_below="@+id/linearTitulo"
->
+            android:layout_alignParentTop="true"
+            android:background="@color/naranja_claro">
 
-            <com.example.universebuilder.markeditor.MarkDEditor
-                android:id="@+id/mdEditor"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_above="@id/linearMdEditor"
+                    android:background="@color/textos"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textFieldTitulo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/naranja_claro"
+                            app:hintTextColor="@color/naranja_claro"
+                            app:boxStrokeColor="@color/naranja_claro"
+                            app:boxBackgroundColor="@color/fondos"
+                            android:layout_weight="1"
+                            android:hint="@string/titulo">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextTituloNueva"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/naranja_claro"
+                                android:maxLines="1" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/boton_publicar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@color/fondo_boton"
+                            android:fontFamily="@font/roboto_slab_bold"
+                            android:text="Publicar"
+                            android:textColor="@color/texto_boton"
+                            app:backgroundTint="@color/fondo_boton" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textFieldEtiquetasNueva"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/etiquetas"
+                        android:textColorHint="@color/naranja_claro"
+                        app:hintTextColor="@color/naranja_claro"
+                        app:boxStrokeColor="@color/naranja_claro"
+                        app:boxBackgroundColor="@color/fondos"
+                        app:endIconDrawable="@drawable/baseline_check_circle_24"
+                        app:endIconMode="custom"
+                        app:endIconTint="@color/naranja_claro">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextEtiquetasNueva"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="@color/naranja_claro" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupNueva"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/fondos"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearMdEditor"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.example.universebuilder.markeditor.MarkDEditor
+                        android:id="@+id/mdEditor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </ScrollView>
 
 
-
-
     </RelativeLayout>
-
-
 
 
 </FrameLayout>

@@ -24,7 +24,7 @@
     <string name="nombreUniverso">NOMBRE DE TU UNIVERSO</string>
     <string name="descripcionUniverso">DESCRIPCIÓN DE TU UNIVERSO</string>
     <string name="visibilidad">VISIBILIDAD DE TU UNIVERSO</string>
-    <string name="etiquetas">etiquetas</string>
+    <string name="etiquetas">Etiquetas</string>
     <string name="etiquetasUniverso">ETIQUETAS DE TU UNIVERSO</string>
     <string name="avisoEtiquetas">No puedes introducir más etiquetas</string>
     <string name="crear_universo">CREAR UNIVERSO</string>
@@ -40,4 +40,5 @@
     <string name="borrar">Borrar</string>
     <string name="pie_de_foto">Pie de foto(Opcional)</string>
     <string name="imagen_fail">Error subiendo la imagen</string>
+    <string name="ok">CONFIRMAR</string>
 </resources>

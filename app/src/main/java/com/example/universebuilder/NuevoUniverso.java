@@ -78,6 +78,10 @@ public class NuevoUniverso extends AppCompatActivity {
                     Chip chip = new Chip(this);
                     chip.setText(editTextLabels.getText().toString());
                     chip.setCloseIconVisible(true);
+                    chip.setCloseIconTintResource(R.color.fondos);
+                    chip.setChipBackgroundColorResource(R.color.naranja_claro);
+                    int fondos = getResources().getColor(R.color.fondos);
+                    chip.setTextColor(fondos);
                     chip.setOnCloseIconClickListener(v1 -> {
                         chipGroup.removeView(chip);
                         if (chipGroup.getChildCount() < maxChips) {

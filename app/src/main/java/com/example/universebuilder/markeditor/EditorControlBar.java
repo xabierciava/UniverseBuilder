@@ -36,6 +36,7 @@ public class EditorControlBar extends FrameLayout implements MarkDEditor.EditorF
   private ImageView linkBtn;
   private ImageView hrBtn;
   private ImageView imageBtn;
+  private ImageView deleteBtn;
   private int enabledColor;
   private int disabledColor;
 
@@ -62,6 +63,7 @@ public class EditorControlBar extends FrameLayout implements MarkDEditor.EditorF
     linkBtn = view.findViewById(R.id.insertLinkBtn);
     hrBtn = view.findViewById(R.id.insertHrBtn);
     imageBtn = view.findViewById(R.id.insertImageBtn);
+    deleteBtn = findViewById(R.id.borrar);
     enabledColor = Color.parseColor("#0994cf");
     disabledColor = Color.parseColor("#3e3e3e");
 
@@ -73,6 +75,7 @@ public class EditorControlBar extends FrameLayout implements MarkDEditor.EditorF
     linkBtn.setColorFilter(disabledColor);
     hrBtn.setColorFilter(disabledColor);
     imageBtn.setColorFilter(disabledColor);
+    deleteBtn.setColorFilter(disabledColor);
     attachListeners();
   }
 
@@ -175,6 +178,15 @@ public class EditorControlBar extends FrameLayout implements MarkDEditor.EditorF
       public void onClick(View view) {
         if (editorControlListener != null) {
           editorControlListener.onInsertImageClicked();
+        }
+      }
+    });
+
+    deleteBtn.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (editorControlListener != null) {
+          editorControlListener.onDeleteDraftClicked();
         }
       }
     });
@@ -295,5 +307,7 @@ public class EditorControlBar extends FrameLayout implements MarkDEditor.EditorF
     void onInsertImageClicked();
 
     void onInserLinkClicked();
+
+    void onDeleteDraftClicked();
   }
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -109,7 +110,7 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
                 if(response.isSuccessful()){
                     listaUniversos.addAll(response.body());
                     for (Universo universo: listaUniversos){
-                        elements.add(new FichaUniverso("#6F3D99",universo.getNombre(),universo.getDescripcion(),universo.getId()));
+                        elements.add(new FichaUniverso("#F5A54F",universo.getNombre(),universo.getDescripcion(),universo.getId()));
                     }
                     listAdapter = new ListAdapter(elements, requireContext(),ListaFragment.this);
                     recyclerView.setHasFixedSize(true);
@@ -138,7 +139,7 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && data!=null){
             Universo universo = (Universo)data.getSerializableExtra("universoNuevo");
-            elements.add(new FichaUniverso("#6F3D99",universo.getNombre(),universo.getDescripcion(),universo.getId()));
+            elements.add(new FichaUniverso("#F5A54F",universo.getNombre(),universo.getDescripcion(),universo.getId()));
             listAdapter.notifyDataSetChanged();
         }
     }

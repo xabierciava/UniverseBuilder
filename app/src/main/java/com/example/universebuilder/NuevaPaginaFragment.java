@@ -2,12 +2,15 @@ package com.example.universebuilder;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -16,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.universebuilder.markeditor.EditorControlBar;
@@ -23,10 +27,22 @@ import com.example.universebuilder.markeditor.MarkDEditor;
 import com.example.universebuilder.markeditor.datatype.DraftDataItemModel;
 import com.example.universebuilder.markeditor.models.DraftModel;
 import com.example.universebuilder.markeditor.utilities.FilePathUtils;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import api.ApiInterface;
+import api.ServiceGenerator;
+import model.Pagina;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -42,6 +58,12 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
     EditorControlBar editorControlBar;
     MarkDEditor markDEditor;
     Button publicar;
+    TextInputLayout textFieldLabels;
+    ChipGroup chipGroup;
+    EditText editTextLabels, editTextTitulo;
+    String idUniverso;
+    Pagina pagina;
+    List<String> listaEtiquetas;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,12 +109,12 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_nueva_pagina, container, false);
+        View view = inflater.inflate(R.layout.fragment_nueva_pagina, container, false);
         init(view);
         return view;
     }
 
-    public void init(View view){
+    public void init(View view) {
         markDEditor = view.findViewById(R.id.mdEditor);
         editorControlBar = view.findViewById(R.id.controlBar);
         editorControlBar.setEditorControlListener(NuevaPaginaFragment.this);
@@ -103,11 +125,16 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 "Escribe aquí...", //default hint of input box
                 NORMAL
         );
-
         markDEditor.loadDraft(getDraftContent());
         editorControlBar.setEditor(markDEditor);
         publicar = view.findViewById(R.id.boton_publicar);
         publicar.setOnClickListener(v -> publicarPagina());
+        chipGroup = view.findViewById(R.id.chipGroupNueva);
+        textFieldLabels = view.findViewById(R.id.textFieldEtiquetasNueva);
+        textFieldLabels.setEndIconOnClickListener(v -> addChip());
+        editTextLabels = view.findViewById(R.id.editTextEtiquetasNueva);
+        idUniverso = getActivity().getIntent().getStringExtra("idUniverso");
+        editTextTitulo = view.findViewById(R.id.editTextTituloNueva);
     }
 
     private DraftModel getDraftContent() {
@@ -122,7 +149,24 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
 
     @Override
     public void onInserLinkClicked() {
+        markDEditor.addLink("Soy un link", "15");
+    }
 
+    @Override
+    public void onDeleteDraftClicked() {
+        new AlertDialog.Builder(requireContext())
+                .setMessage("¿Seguro que quieres borrar todo?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditarUniverso madre = (EditarUniverso) requireActivity();
+                        Fragment nueva = new NuevaPaginaFragment();
+                        madre.setNueva(nueva);
+                        madre.ChangeFragment(EditarUniverso.NavigationFragment.Nueva);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void openGallery() {
@@ -135,8 +179,7 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, REQUEST_IMAGE_SELECTOR);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -167,13 +210,58 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         }
     }
 
-    public void publicarPagina(){
-        DraftModel dm = markDEditor.getDraft();
-        String json = new Gson().toJson(dm);
-        Log.d("MarkDEditor", json);
+    public void publicarPagina() {
+        String titulo = editTextTitulo.getText().toString();
+        if (!titulo.equals("")) {
+            DraftModel dm = markDEditor.getDraft();
+            String json = new Gson().toJson(dm);
+            System.out.println(json);
+            listaEtiquetas = new ArrayList<>();
+            for (int i = 0; i < chipGroup.getChildCount(); i++) {
+                Chip chip = (Chip) chipGroup.getChildAt(i);
+                listaEtiquetas.add(chip.getText().toString());
+            }
+
+            pagina = new Pagina("placeholder", titulo, idUniverso, json, listaEtiquetas);
+            ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+            Call<String> call = apiInterface.insertaPagina(pagina);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()) {
+                        System.out.println("pagina subida");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("tag", t.getMessage());
+                }
+            });
+        }else{
+            Toast.makeText(requireContext(), "Ponle título a la página", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void addImage(String filePath) {
         markDEditor.insertImage(filePath);
+    }
+
+
+    public void addChip() {
+        if (!editTextLabels.getText().toString().equals("")) {
+            Chip chip = new Chip(requireContext());
+            chip.setText(editTextLabels.getText().toString());
+            chip.setCloseIconVisible(true);
+            chip.setCloseIconTintResource(R.color.fondos);
+            chip.setChipBackgroundColorResource(R.color.naranja_claro);
+            int fondos = getResources().getColor(R.color.fondos);
+            chip.setTextColor(fondos);
+            chip.setOnCloseIconClickListener(v1 -> {
+                chipGroup.removeView(chip);
+            });
+            chipGroup.addView(chip);
+            editTextLabels.setText("");
+        }
     }
 }

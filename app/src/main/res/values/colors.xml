@@ -7,9 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="fondos">#FF000032</color>
+    <color name="fondos">#FF000035</color>
     <color name="textos">#FFBDBDBD</color>
-    <color name="fondo_boton">#FFFF7700</color>
+    <color name="fondo_boton">#FA652E</color>
     <color name="texto_boton">#FF000077</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFFFFFFF</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/naranja_claro</color>
+    <color name="fondo_ficha">#fbcc8d</color>
+    <color name="coral">#FA652E</color>
+    <color name="naranja_claro">#F5A54F</color>
+    <color name="turquesa">#3CB3AF</color>
+    <color name="violeta">#C849FF</color>
+    <color name="fondo_editor">#F5A54F</color>
 </resources>

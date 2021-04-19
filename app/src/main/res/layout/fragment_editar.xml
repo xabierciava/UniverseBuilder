@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondos"
     tools:context=".EditarFragment">
 
 
@@ -16,11 +17,11 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/arvo"
+            android:fontFamily="@font/roboto_slab_bold"
             android:text="@string/cambiar_pass"
-            android:textColor="#000077"
+            android:textColor="@color/texto_boton"
             android:textSize="30sp"
-            app:backgroundTint="#FF7700"
+            app:backgroundTint="@color/fondo_boton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
@@ -37,8 +38,7 @@
             android:hint="@string/nombre"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:passwordToggleTint="@color/textos">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextEditarNombre"
@@ -99,11 +99,11 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/arvo"
+            android:fontFamily="@font/roboto_slab_bold"
             android:text="@string/cambiar_nombre"
-            android:textColor="#000077"
+            android:textColor="@color/texto_boton"
             android:textSize="30sp"
-            app:backgroundTint="#FF7700"
+            app:backgroundTint="@color/fondo_boton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

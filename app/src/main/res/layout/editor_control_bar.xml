@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="@drawable/editor_control_bg"
+    android:backgroundTint="@color/textos"
     android:orientation="horizontal">
 
     <FrameLayout
@@ -130,6 +131,22 @@
             android:focusable="true"
             android:padding="10dp"
             android:src="@drawable/hr" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/container8"
+        android:layout_width="44dp"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/container6">
+
+        <ImageView
+            android:id="@+id/borrar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_delete_24" />
     </FrameLayout>
 
     <FrameLayout

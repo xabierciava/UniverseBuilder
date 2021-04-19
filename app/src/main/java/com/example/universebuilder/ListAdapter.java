@@ -53,7 +53,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView iconImage;
         TextView universo, descripcion;
-        LinearLayout fondo;
         OnUniverseListener onUniverseListener;
 
         ViewHolder(View itemView,OnUniverseListener onUniverseListener){
@@ -61,7 +60,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             iconImage = itemView.findViewById(R.id.iconImageView);
             universo = itemView.findViewById(R.id.universeTextView);
             descripcion = itemView.findViewById(R.id.descripcionTextView);
-            fondo = itemView.findViewById(R.id.linearLayoutGeneral);
             this.onUniverseListener = onUniverseListener;
             itemView.setOnClickListener(this);
         }
@@ -69,7 +67,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         void bindData(final FichaUniverso item){
             universo.setText(item.getNombre());
             descripcion.setText(item.getDescripcion());
-            fondo.setBackgroundColor(Color.parseColor(item.getColor()));
         }
 
         @Override
