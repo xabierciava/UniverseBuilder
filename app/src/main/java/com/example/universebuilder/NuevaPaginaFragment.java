@@ -2,6 +2,7 @@ package com.example.universebuilder;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,8 +19,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.universebuilder.markeditor.EditorControlBar;
@@ -64,6 +67,8 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
     String idUniverso;
     Pagina pagina;
     List<String> listaEtiquetas;
+    InputMethodManager im;
+    FrameLayout mainLayout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -135,6 +140,25 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         editTextLabels = view.findViewById(R.id.editTextEtiquetasNueva);
         idUniverso = getActivity().getIntent().getStringExtra("idUniverso");
         editTextTitulo = view.findViewById(R.id.editTextTituloNueva);
+        mainLayout = view.findViewById(R.id.frameNuevaPagina);
+        im = (InputMethodManager) requireActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
+        SoftKeyboard softKeyboard;
+        softKeyboard = new SoftKeyboard(markDEditor, im);
+        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged()
+        {
+
+            @Override
+            public void onSoftKeyboardHide()
+            {
+                System.out.println("escondido");
+            }
+
+            @Override
+            public void onSoftKeyboardShow()
+            {
+                System.out.println("abierto");
+            }
+        });
     }
 
     private DraftModel getDraftContent() {
@@ -162,7 +186,7 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                         EditarUniverso madre = (EditarUniverso) requireActivity();
                         Fragment nueva = new NuevaPaginaFragment();
                         madre.setNueva(nueva);
-                        madre.ChangeFragment(EditarUniverso.NavigationFragment.Nueva);
+                        madre.getSupportFragmentManager().beginTransaction().add(R.id.contenedor_fragments_editor_universo,nueva).commit();
                     }
                 })
                 .setNegativeButton("No", null)

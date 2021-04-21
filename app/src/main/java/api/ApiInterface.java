@@ -2,6 +2,7 @@ package api;
 
 import java.util.List;
 
+import model.FichaPagina;
 import model.Pagina;
 import model.PaqueteUsuario;
 import model.Universo;
@@ -53,5 +54,8 @@ public interface ApiInterface {
 
     @POST("add_pagina.php")
     Call<String> insertaPagina(@Body Pagina pagina);
+
+    @GET("get_paginas_universo.php")
+    Call<List<FichaPagina>> getPaginaUniverso(@Query("universo") String id);
 
 }

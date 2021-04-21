@@ -1,4 +1,4 @@
-package com.example.universebuilder;
+package model;
 
 public class FichaUniverso {
     private String color;

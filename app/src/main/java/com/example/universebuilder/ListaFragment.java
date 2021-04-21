@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +20,7 @@ import java.util.List;
 
 import api.ApiInterface;
 import api.ServiceGenerator;
+import model.FichaUniverso;
 import model.Universo;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,13 +33,13 @@ import static android.content.Context.MODE_PRIVATE;
  * Use the {@link ListaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaFragment extends Fragment implements ListAdapter.OnUniverseListener {
+public class ListaFragment extends Fragment implements ListAdapterUniversos.OnUniverseListener {
 
     List<FichaUniverso> elements;
     RecyclerView recyclerView;
     ImageView imagenPlaneta;
     List<Universo> listaUniversos;
-    ListAdapter listAdapter;
+    ListAdapterUniversos listAdapterUniversos;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -112,10 +112,10 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
                     for (Universo universo: listaUniversos){
                         elements.add(new FichaUniverso("#F5A54F",universo.getNombre(),universo.getDescripcion(),universo.getId()));
                     }
-                    listAdapter = new ListAdapter(elements, requireContext(),ListaFragment.this);
+                    listAdapterUniversos = new ListAdapterUniversos(elements, requireContext(),ListaFragment.this);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                    recyclerView.setAdapter(listAdapter);
+                    recyclerView.setAdapter(listAdapterUniversos);
                 }
             }
 
@@ -140,7 +140,7 @@ public class ListaFragment extends Fragment implements ListAdapter.OnUniverseLis
         if(requestCode==1 && data!=null){
             Universo universo = (Universo)data.getSerializableExtra("universoNuevo");
             elements.add(new FichaUniverso("#F5A54F",universo.getNombre(),universo.getDescripcion(),universo.getId()));
-            listAdapter.notifyDataSetChanged();
+            listAdapterUniversos.notifyDataSetChanged();
         }
     }
 }

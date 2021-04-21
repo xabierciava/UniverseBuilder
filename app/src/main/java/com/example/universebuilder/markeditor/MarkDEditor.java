@@ -564,11 +564,12 @@ public class MarkDEditor extends MarkDCore implements
         this.editorFocusReporter = editorFocusReporter;
     }
 
+
+
     public interface EditorFocusReporter {
         void onFocusedViewHas(int mode, int textComponentStyle);
     }
 
-    public void cleanEditor(){
-        draftManager = new DraftManager();
-    }
+
+
 }

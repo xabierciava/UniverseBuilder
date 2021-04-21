@@ -1,5 +1,6 @@
 package com.example.universebuilder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,11 +19,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditarUniverso extends AppCompatActivity {
+public class EditarUniverso extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    String idUniverso;
     BottomNavigationView navigation;
     Universo universo;
+    FragmentTransaction transaction;
+    Fragment ajustes,nueva,editar;
 
     public Fragment getNueva() {
         return nueva;
@@ -31,14 +34,7 @@ public class EditarUniverso extends AppCompatActivity {
         this.nueva = nueva;
     }
 
-    Boolean flagNueva=false;
-    Fragment ajustes,nueva,editar;
 
-    public enum NavigationFragment{
-        Ajustes,
-        Nueva,
-        Editar
-    }
 
     @Override
     public void onBackPressed() {
@@ -54,22 +50,8 @@ public class EditarUniverso extends AppCompatActivity {
                 .show();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = item -> {
 
-                    switch (item.getItemId()) {
-                        case R.id.page_ajustes:
-                            ChangeFragment(NavigationFragment.Ajustes);
-                            return true;
-                        case R.id.page_nueva:
-                            ChangeFragment(NavigationFragment.Nueva);
-                            return true;
-                        case R.id.page_editar:
-                            ChangeFragment(NavigationFragment.Editar);
-                            return true;
-                    }
-                return false;
-            };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +63,9 @@ public class EditarUniverso extends AppCompatActivity {
         editar = new EditarPaginasFragment();
 
         navigation = findViewById(R.id.bottom_navigation_editor);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(this);
 
-        ChangeFragment(NavigationFragment.Editar);
+        getSupportFragmentManager().beginTransaction().add(R.id.contenedor_fragments_editor_universo,editar).commit();
         navigation.setSelectedItemId(R.id.page_editar);
 
     }
@@ -93,25 +75,21 @@ public class EditarUniverso extends AppCompatActivity {
     }
 
 
-    public void ChangeFragment(NavigationFragment value){
-        Fragment fragment = null;
-        switch (value) {
-            case Ajustes:
-                fragment = ajustes;
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        transaction=getSupportFragmentManager().beginTransaction();
+        switch (item.getItemId()) {
+            case R.id.page_ajustes:
+                transaction.replace(R.id.contenedor_fragments_editor_universo,ajustes);
                 break;
-            case Nueva:
-                fragment = nueva;
+            case R.id.page_nueva:
+                transaction.replace(R.id.contenedor_fragments_editor_universo,nueva);
                 break;
-            case Editar:
-                fragment= editar;
+            case R.id.page_editar:
+                transaction.replace(R.id.contenedor_fragments_editor_universo,editar);
                 break;
         }
-        if(fragment!=null)
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contenedor_fragments_editor_universo, fragment)
-                    .commit();
-
+        transaction.commit();
+        return true;
     }
-
 }

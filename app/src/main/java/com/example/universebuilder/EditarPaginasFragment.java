@@ -1,19 +1,37 @@
 package com.example.universebuilder;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import api.ApiInterface;
+import api.ServiceGenerator;
+import model.FichaPagina;
+import model.Universo;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditarPaginasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditarPaginasFragment extends Fragment {
+public class EditarPaginasFragment extends Fragment implements ListaPaginasEditarAdapter.OnPaginaListener {
+
+    String idUniverso;
+    List<FichaPagina> elements;
+    RecyclerView recyclerView;
+    ListaPaginasEditarAdapter listAdapterPaginas;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +77,40 @@ public class EditarPaginasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_editar_paginas, container, false);
+        View view = inflater.inflate(R.layout.fragment_editar_paginas, container, false);
+        init(view);
+        return view;
     }
+
+    public void init(View view){
+        idUniverso = getActivity().getIntent().getStringExtra("idUniverso");
+        elements = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.recyclerEditarPaginas);
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<List<FichaPagina>> call = apiInterface.getPaginaUniverso(idUniverso);
+        call.enqueue(new Callback<List<FichaPagina>>() {
+            @Override
+            public void onResponse(Call<List<FichaPagina>> call, Response<List<FichaPagina>> response) {
+                if (response.isSuccessful()){
+                    elements=response.body();
+                    listAdapterPaginas = new ListaPaginasEditarAdapter(elements, requireContext(),EditarPaginasFragment.this);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setAdapter(listAdapterPaginas);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FichaPagina>> call, Throwable t) {
+                Log.e("tag", t.getMessage());
+            }
+        });
+    }
+
+    public void onPaginaClick(int position){
+        FichaPagina pagina = elements.get(position);
+
+    }
+
+
 }

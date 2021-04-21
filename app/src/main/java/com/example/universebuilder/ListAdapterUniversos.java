@@ -2,12 +2,10 @@ package com.example.universebuilder;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,13 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+import model.FichaUniverso;
+
+public class ListAdapterUniversos extends RecyclerView.Adapter<ListAdapterUniversos.ViewHolder> {
     private List<FichaUniverso> mData;
     private LayoutInflater mInflater;
     private Context context;
     private OnUniverseListener mOnUniverseListener;
 
-    public ListAdapter(List<FichaUniverso> mData, Context context, OnUniverseListener onUniverseListener) {
+    public ListAdapterUniversos(List<FichaUniverso> mData, Context context, OnUniverseListener onUniverseListener) {
         this.mData = mData;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -30,14 +30,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListAdapterUniversos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.ficha_universo, null);
-        return new ListAdapter.ViewHolder(view,mOnUniverseListener);
+        return new ListAdapterUniversos.ViewHolder(view,mOnUniverseListener);
 
     }
 
     @Override
-    public void onBindViewHolder(final ListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ListAdapterUniversos.ViewHolder holder, int position) {
         holder.bindData(mData.get(position));
     }
 
