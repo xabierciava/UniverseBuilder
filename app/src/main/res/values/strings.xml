@@ -35,10 +35,16 @@
     <string name="crear_pagina">nueva página</string>
     <string name="editar_paginas">editar páginas</string>
     <string name="avisoNombre">El nombre no puede estar vacío</string>
+    <string name="avisoIcono">Selecciona un icono</string>
     <string name="titulo">Título</string>
     <string name="contenido">contenido</string>
     <string name="borrar">Borrar</string>
     <string name="pie_de_foto">Pie de foto(Opcional)</string>
     <string name="imagen_fail">Error subiendo la imagen</string>
     <string name="ok">CONFIRMAR</string>
+    <string name="action_search">buscar</string>
+    <string name="categorias">Categorias</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="Buscar">Buscar</string>
 </resources>

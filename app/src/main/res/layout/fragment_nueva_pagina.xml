@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/controlBar"
             android:layout_alignParentTop="true"
-            android:background="@color/naranja_claro">
+            android:background="@color/fondo_editor">
 
 
             <LinearLayout
@@ -81,10 +81,10 @@
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textFieldEtiquetasNueva"
+                        android:id="@+id/textFieldCategoriasNueva"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/etiquetas"
+                        android:hint="@string/categorias"
                         android:textColorHint="@color/naranja_claro"
                         app:hintTextColor="@color/naranja_claro"
                         app:boxStrokeColor="@color/naranja_claro"
@@ -94,7 +94,7 @@
                         app:endIconTint="@color/naranja_claro">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editTextEtiquetasNueva"
+                            android:id="@+id/editTextCategoríasNueva"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:maxLines="1"

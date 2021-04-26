@@ -1,16 +1,15 @@
 package model;
 
 public class FichaUniverso {
-    private String color;
     private String nombre;
-
-
+    private int icono;
     private String descripcion;
     private String id;
 
-    public FichaUniverso(String color, String nombre, String descripcion, String id) {
+
+    public FichaUniverso(int icono, String nombre, String descripcion, String id) {
         this.id= id;
-        this.color = color;
+        this.icono = icono;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -20,12 +19,12 @@ public class FichaUniverso {
 
     public void setId(String id) { this.id = id; }
 
-    public String getColor() {
-        return color;
+    public int getIcono() {
+        return icono;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setIcono(int icono) {
+        this.icono = icono;
     }
 
     public String getNombre() {

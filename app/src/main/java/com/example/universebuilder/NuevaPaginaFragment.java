@@ -3,9 +3,7 @@ package com.example.universebuilder;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Service;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,18 +32,21 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import api.ApiInterface;
 import api.ServiceGenerator;
+import model.FichaUniverso;
 import model.Pagina;
+import model.Universo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -57,6 +58,7 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
 
     public static final int NORMAL = 0;
     private final int REQUEST_IMAGE_SELECTOR = 110;
+    private final int REQUEST_LINK= 5;
 
     EditorControlBar editorControlBar;
     MarkDEditor markDEditor;
@@ -135,30 +137,13 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         publicar = view.findViewById(R.id.boton_publicar);
         publicar.setOnClickListener(v -> publicarPagina());
         chipGroup = view.findViewById(R.id.chipGroupNueva);
-        textFieldLabels = view.findViewById(R.id.textFieldEtiquetasNueva);
+        textFieldLabels = view.findViewById(R.id.textFieldCategoriasNueva);
         textFieldLabels.setEndIconOnClickListener(v -> addChip());
-        editTextLabels = view.findViewById(R.id.editTextEtiquetasNueva);
+        editTextLabels = view.findViewById(R.id.editTextCategoríasNueva);
         idUniverso = getActivity().getIntent().getStringExtra("idUniverso");
         editTextTitulo = view.findViewById(R.id.editTextTituloNueva);
         mainLayout = view.findViewById(R.id.frameNuevaPagina);
         im = (InputMethodManager) requireActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
-        SoftKeyboard softKeyboard;
-        softKeyboard = new SoftKeyboard(markDEditor, im);
-        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged()
-        {
-
-            @Override
-            public void onSoftKeyboardHide()
-            {
-                System.out.println("escondido");
-            }
-
-            @Override
-            public void onSoftKeyboardShow()
-            {
-                System.out.println("abierto");
-            }
-        });
     }
 
     private DraftModel getDraftContent() {
@@ -173,7 +158,9 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
 
     @Override
     public void onInserLinkClicked() {
-        markDEditor.addLink("Soy un link", "15");
+        Intent intent = new Intent(getActivity(), ElegirPagina.class);
+        intent.putExtra("idUniverso",idUniverso);
+        startActivityForResult(intent,REQUEST_LINK);
     }
 
     @Override
@@ -181,13 +168,11 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         new AlertDialog.Builder(requireContext())
                 .setMessage("¿Seguro que quieres borrar todo?")
                 .setCancelable(false)
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        EditarUniverso madre = (EditarUniverso) requireActivity();
-                        Fragment nueva = new NuevaPaginaFragment();
-                        madre.setNueva(nueva);
-                        madre.getSupportFragmentManager().beginTransaction().add(R.id.contenedor_fragments_editor_universo,nueva).commit();
-                    }
+                .setPositiveButton("Sí", (dialog, id) -> {
+                    EditarUniverso madre = (EditarUniverso) requireActivity();
+                    Fragment nueva = new NuevaPaginaFragment();
+                    madre.setNueva(nueva);
+                    madre.getSupportFragmentManager().beginTransaction().add(R.id.contenedor_fragments_editor_universo,nueva).commit();
                 })
                 .setNegativeButton("No", null)
                 .show();
@@ -217,6 +202,11 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 String filePath = FilePathUtils.getPath(requireContext(), uri);
                 addImage(filePath);
             }
+        }else if(requestCode == REQUEST_LINK){
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                String id = data.getStringExtra("idPagina");
+                markDEditor.addLink("Escribe lo que quieras", id);
+            }
         }
     }
 
@@ -227,7 +217,6 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openGallery();
                 } else {
-                    //do something like displaying a message that he didn`t allow the app to access gallery and you wont be able to let him select from gallery
                     Toast.makeText(requireContext(), "No has dado permisos para acceder al almacenamiento", Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -236,10 +225,10 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
 
     public void publicarPagina() {
         String titulo = editTextTitulo.getText().toString();
-        if (!titulo.equals("")) {
+        if (!titulo.equals("") && chipGroup.getChildCount()>0) {
             DraftModel dm = markDEditor.getDraft();
-            String json = new Gson().toJson(dm);
-            System.out.println(json);
+            Gson gson = new GsonBuilder().create();
+            String json = gson.toJson(dm);
             listaEtiquetas = new ArrayList<>();
             for (int i = 0; i < chipGroup.getChildCount(); i++) {
                 Chip chip = (Chip) chipGroup.getChildAt(i);
@@ -253,7 +242,18 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if (response.isSuccessful()) {
-                        System.out.println("pagina subida");
+                        if(!response.body().equals("-1")){
+                            Toast toast1 =
+                                    Toast.makeText(requireContext(),
+                                            "Página subida exitosamente", Toast.LENGTH_LONG);
+                            toast1.show();
+                        }else{
+                            Toast toast1 =
+                                    Toast.makeText(requireContext(),
+                                            "Ya existe otra página con el mismo título", Toast.LENGTH_LONG);
+                            toast1.show();
+                        }
+
                     }
                 }
 
@@ -263,7 +263,12 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
                 }
             });
         }else{
-            Toast.makeText(requireContext(), "Ponle título a la página", Toast.LENGTH_LONG).show();
+            if (chipGroup.getChildCount()==0){
+                Toast.makeText(requireContext(), "La página debe tener al menos una categoría", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(requireContext(), "Ponle título a la página", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 

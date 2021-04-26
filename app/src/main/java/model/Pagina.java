@@ -7,15 +7,15 @@ public class Pagina {
     private String titulo;
     private String universo;
     private String contenido;
-    private List<String> listaEtiquetas;
+    private List<String> categoria;
 
-    public Pagina(String id, String titulo, String universo, String contenido, List<String> listaEtiquetas) {
+
+    public Pagina(String id, String titulo, String universo, String contenido, List<String> categoria) {
         this.id = id;
         this.titulo = titulo;
         this.universo = universo;
         this.contenido = contenido;
-        this.listaEtiquetas = listaEtiquetas;
-
+        this.categoria = categoria;
     }
 
     public String getTitulo() {
@@ -26,13 +26,14 @@ public class Pagina {
         this.titulo = titulo;
     }
 
-    public List<String> getListaEtiquetas() {
-        return listaEtiquetas;
+    public List<String> getCategoria() {
+        return categoria;
     }
 
-    public void setListaEtiquetas(List<String> listaEtiquetas) {
-        this.listaEtiquetas = listaEtiquetas;
+    public void setCategoria(List<String> categoria) {
+        this.categoria = categoria;
     }
+
 
     public String getId() {
         return id;

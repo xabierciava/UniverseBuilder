@@ -9,15 +9,25 @@ public class Universo implements Serializable {
     private String descripcion;
     private String creador;
     private String visibilidad;
+    private int icono;
     List<String> listaEtiquetas;
 
-    public Universo(String id, String nombre, String descripcion, String creador, String visibilidad, List<String> listaEtiquetas){
+    public Universo(String id, String nombre, String descripcion, String creador, String visibilidad, int icono, List<String> listaEtiquetas) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.creador = creador;
         this.visibilidad = visibilidad;
+        this.icono = icono;
         this.listaEtiquetas = listaEtiquetas;
+    }
+
+    public int getIcono() {
+        return icono;
+    }
+
+    public void setIcono(int icono) {
+        this.icono = icono;
     }
 
     public String getId() {

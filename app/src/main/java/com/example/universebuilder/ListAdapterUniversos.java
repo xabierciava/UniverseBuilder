@@ -67,6 +67,15 @@ public class ListAdapterUniversos extends RecyclerView.Adapter<ListAdapterUniver
         void bindData(final FichaUniverso item){
             universo.setText(item.getNombre());
             descripcion.setText(item.getDescripcion());
+            switch(item.getIcono()){
+                case 1:
+                    iconImage.setImageResource(R.drawable.dragon);
+                    break;
+                case 2:
+                    iconImage.setImageResource(R.drawable.cthulhu);
+                    break;
+            }
+
         }
 
         @Override

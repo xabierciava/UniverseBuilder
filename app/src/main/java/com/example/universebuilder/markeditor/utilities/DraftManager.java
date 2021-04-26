@@ -12,6 +12,8 @@ import com.example.universebuilder.markeditor.models.DraftModel;
 import com.example.universebuilder.markeditor.models.TextComponentModel;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.universebuilder.markeditor.Styles.TextComponentStyle.NORMAL;
 import static com.example.universebuilder.markeditor.components.TextComponentItem.MODE_OL;
@@ -22,7 +24,6 @@ public class DraftManager {
   public DraftManager() {
 
   }
-
   /**
    * Traverse through each item and prepares the draft item list.
    * @param markDEditor editor object.
@@ -38,6 +39,8 @@ public class DraftManager {
       view = markDEditor.getChildAt(i);
       if (view instanceof TextComponentItem) {
         //check mode
+        ((TextComponentItem) view).setText(((TextComponentItem) view).getContent().replaceAll("\"","'"));
+
         int mode = ((TextComponentItem) view).getMode();
         if (mode == MODE_PLAIN) {
           //check for styles {H1-H5 Blockquote Normal}
@@ -54,7 +57,7 @@ public class DraftManager {
       } else if (view instanceof ImageComponentItem) {
         drafts.add(getImageModel(
          ((ImageComponentItem) view).getDownloadUrl(),
-         ((ImageComponentItem) view).getCaption()
+         ((ImageComponentItem) view).getCaption().replaceAll("\"","'")
         ));
       }
     }

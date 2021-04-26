@@ -58,4 +58,10 @@ public interface ApiInterface {
     @GET("get_paginas_universo.php")
     Call<List<FichaPagina>> getPaginaUniverso(@Query("universo") String id);
 
+    @POST("editar_pagina.php")
+    Call<String> editarPagina(@Body Pagina pagina);
+
+    @GET("get_pagina_id.php")
+    Call<Pagina> getPaginaId(@Query("idPagina")String id);
+
 }

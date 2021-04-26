@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UniverseBuilder">
+        <activity android:name=".ElegirPagina"></activity>
+        <activity android:name=".EditarPagina" />
         <activity android:name=".PantallaCarga">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +35,8 @@
         <activity
             android:name=".Registrar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

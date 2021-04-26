@@ -110,7 +110,7 @@ public class ListaFragment extends Fragment implements ListAdapterUniversos.OnUn
                 if(response.isSuccessful()){
                     listaUniversos.addAll(response.body());
                     for (Universo universo: listaUniversos){
-                        elements.add(new FichaUniverso("#F5A54F",universo.getNombre(),universo.getDescripcion(),universo.getId()));
+                        elements.add(new FichaUniverso(universo.getIcono(),universo.getNombre(),universo.getDescripcion(),universo.getId()));
                     }
                     listAdapterUniversos = new ListAdapterUniversos(elements, requireContext(),ListaFragment.this);
                     recyclerView.setHasFixedSize(true);
@@ -139,7 +139,7 @@ public class ListaFragment extends Fragment implements ListAdapterUniversos.OnUn
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && data!=null){
             Universo universo = (Universo)data.getSerializableExtra("universoNuevo");
-            elements.add(new FichaUniverso("#F5A54F",universo.getNombre(),universo.getDescripcion(),universo.getId()));
+            elements.add(new FichaUniverso(universo.getIcono(),universo.getNombre(),universo.getDescripcion(),universo.getId()));
             listAdapterUniversos.notifyDataSetChanged();
         }
     }

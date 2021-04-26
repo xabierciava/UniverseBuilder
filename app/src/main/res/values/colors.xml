@@ -18,4 +18,6 @@
     <color name="turquesa">#3CB3AF</color>
     <color name="violeta">#C849FF</color>
     <color name="fondo_editor">#F5A54F</color>
+    <color name="gris_oscuro">#676767</color>
+    <color name="gris_claro">#AFAFAF</color>
 </resources>

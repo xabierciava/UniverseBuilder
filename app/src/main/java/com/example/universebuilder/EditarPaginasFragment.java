@@ -1,10 +1,14 @@
 package com.example.universebuilder;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +20,6 @@ import java.util.List;
 import api.ApiInterface;
 import api.ServiceGenerator;
 import model.FichaPagina;
-import model.Universo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,6 +74,7 @@ public class EditarPaginasFragment extends Fragment implements ListaPaginasEdita
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -79,6 +83,7 @@ public class EditarPaginasFragment extends Fragment implements ListaPaginasEdita
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_editar_paginas, container, false);
         init(view);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -105,12 +110,34 @@ public class EditarPaginasFragment extends Fragment implements ListaPaginasEdita
                 Log.e("tag", t.getMessage());
             }
         });
+        EditText buscarEditText = view.findViewById(R.id.editTextBuscar);
+        buscarEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                listAdapterPaginas.getFilter().filter(s.toString());
+            }
+        });
     }
 
+    @Override
     public void onPaginaClick(int position){
         FichaPagina pagina = elements.get(position);
-
+        Intent intent = new Intent(requireActivity(), EditarPagina.class);
+        intent.putExtra("idPagina",pagina.getId());
+        intent.putExtra("idUniverso",idUniverso);
+        startActivity(intent);
     }
+
 
 
 }
