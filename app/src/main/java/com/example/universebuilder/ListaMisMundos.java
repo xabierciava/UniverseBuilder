@@ -70,12 +70,10 @@ public class ListaMisMundos extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.nav_lista:
                 transaction.replace(R.id.contenedorFragments,fragmentLista);
-                transaction.addToBackStack(null);
                 getSupportActionBar().setTitle("Lista de universos");
                 break;
             case R.id.nav_edit_perfil:
                 transaction.replace(R.id.contenedorFragments,fragmentEditar);
-                transaction.addToBackStack(null);
                 getSupportActionBar().setTitle("Editar perfil");
                 break;
             case R.id.nav_logout:

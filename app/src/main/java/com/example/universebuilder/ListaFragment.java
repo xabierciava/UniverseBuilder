@@ -85,8 +85,9 @@ public class ListaFragment extends Fragment implements ListAdapterUniversos.OnUn
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        elements = new ArrayList<>();
+
         View view = inflater.inflate(R.layout.fragment_lista, container, false);
+        elements = new ArrayList<>();
         recyclerView = view.findViewById(R.id.listRecyclerView);
         init(view);
         imagenPlaneta = view.findViewById(R.id.imagen_planeta_fab);

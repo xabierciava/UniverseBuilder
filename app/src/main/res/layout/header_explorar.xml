@@ -3,5 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:orientation="vertical"
-    android:background="@color/coral"
+    android:background="@color/turquesa"
     android:gravity="bottom"/>

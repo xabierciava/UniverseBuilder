@@ -47,4 +47,6 @@
     <string name="confirmar">Confirmar</string>
     <string name="cancelar">Cancelar</string>
     <string name="Buscar">Buscar</string>
+    <string name="populares">Populares</string>
+    <string name="explorar">Explorar</string>
 </resources>

@@ -42,6 +42,9 @@ public interface ApiInterface {
     @GET("get_universo_id.php")
     Call<Universo> getUniversoId(@Query("id") String id);
 
+    @GET("get_universos_query.php")
+    Call<List<Universo>> getUniversosQuery(@Query("query") String query);
+
     @GET("get_etiquetas_id.php")
     Call<List<String>> getEtiquetasId(@Query("id") String id);
 
@@ -63,5 +66,23 @@ public interface ApiInterface {
 
     @GET("get_pagina_id.php")
     Call<Pagina> getPaginaId(@Query("idPagina")String id);
+
+    @GET("get_universos_populares.php")
+    Call<List<Universo>> getUniversosPopulares();
+
+    @GET("get_universos_aleatorios.php")
+    Call<List<Universo>> getUniversosAleatorios();
+
+    @GET("get_universos_favoritos.php")
+    Call<List<Universo>> getUniversosFavoritos(@Query("idUsuario")String idUsuario);
+
+    @GET("set_favorito.php")
+    Call<String> setFavorito(@Query("idUsuario")String idUsuario, @Query("idUniverso")String idUniverso);
+
+    @GET("unset_favorito.php")
+    Call<String> unsetFavorito(@Query("idUsuario")String idUsuario, @Query("idUniverso")String idUniverso);
+
+    @GET("get_favoritos.php")
+    Call<List<String>> getFavoritos(@Query("idUsuario")String idUsuario);
 
 }
