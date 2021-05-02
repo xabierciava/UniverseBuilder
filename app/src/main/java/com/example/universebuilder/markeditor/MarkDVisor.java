@@ -3,17 +3,13 @@ package com.example.universebuilder.markeditor;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
 
 import com.example.universebuilder.markeditor.components.HorizontalDividerComponent;
 import com.example.universebuilder.markeditor.components.HorizontalDividerComponentItem;
-import com.example.universebuilder.markeditor.components.ImageComponent;
-import com.example.universebuilder.markeditor.components.ImageComponentItem;
 import com.example.universebuilder.markeditor.components.ImageComponentItemVer;
 import com.example.universebuilder.markeditor.components.ImageComponentVer;
-import com.example.universebuilder.markeditor.components.TextComponentItem;
 import com.example.universebuilder.markeditor.components.TextComponentItemVer;
 import com.example.universebuilder.markeditor.components.TextComponentVer;
 import com.example.universebuilder.markeditor.datatype.DraftDataItemModel;
@@ -23,16 +19,12 @@ import com.example.universebuilder.markeditor.models.ImageComponentModel;
 import com.example.universebuilder.markeditor.models.TextComponentModel;
 import com.example.universebuilder.markeditor.utilities.ComponentMetadataHelper;
 import com.example.universebuilder.markeditor.utilities.DraftManager;
-import com.example.universebuilder.markeditor.utilities.MarkDownConverter;
 import com.example.universebuilder.markeditor.utilities.RenderingUtilsVer;
 
 import java.util.ArrayList;
 
-import static com.example.universebuilder.markeditor.Styles.TextComponentStyle.BLOCKQUOTE;
 import static com.example.universebuilder.markeditor.Styles.TextComponentStyle.NORMAL;
-import static com.example.universebuilder.markeditor.components.TextComponentItem.MODE_OL;
 import static com.example.universebuilder.markeditor.components.TextComponentItem.MODE_PLAIN;
-import static com.example.universebuilder.markeditor.components.TextComponentItem.MODE_UL;
 
 public class MarkDVisor extends MarkDCore{
     private static String serverUrl;
@@ -108,8 +100,8 @@ public class MarkDVisor extends MarkDCore{
      */
     public void setHeading(int heading) {
         currentInputMode = MODE_PLAIN;
-        if (_activeView instanceof TextComponentItem) {
-            ((TextComponentItem) _activeView).setMode(currentInputMode);
+        if (_activeView instanceof TextComponentItemVer) {
+            ((TextComponentItemVer) _activeView).setMode(currentInputMode);
             ComponentTag componentTag = (ComponentTag) _activeView.getTag();
             ((TextComponentModel) componentTag.getComponent()).setHeadingStyle(heading);
             __textComponentVer.updateComponent(_activeView);
@@ -122,10 +114,10 @@ public class MarkDVisor extends MarkDCore{
      */
     private void setFocus(View view) {
         _activeView = view;
-        if (_activeView instanceof TextComponentItem) {
-            currentInputMode = ((TextComponentItem) _activeView).getMode();
-            ((TextComponentItem) view).getInputBox().requestFocus();
-            reportStylesOfFocusedView((TextComponentItem) view);
+        if (_activeView instanceof TextComponentItemVer) {
+            currentInputMode = ((TextComponentItemVer) _activeView).getMode();
+            ((TextComponentItemVer) view).getInputBox().requestFocus();
+            reportStylesOfFocusedView((TextComponentItemVer) view);
         }
     }
 
@@ -149,7 +141,7 @@ public class MarkDVisor extends MarkDCore{
      *
      * @param view newly focus view.
      */
-    private void reportStylesOfFocusedView(TextComponentItem view) {
+    private void reportStylesOfFocusedView(TextComponentItemVer view) {
         if (editorFocusReporter != null) {
             editorFocusReporter.onFocusedViewHas(view.getMode(), view.getTextHeadingStyle());
         }
@@ -201,166 +193,8 @@ public class MarkDVisor extends MarkDCore{
     }
 
 
-    /**
-     * This method searches whithin view group for a TextComponent which was
-     * inserted prior to startIndex.
-     *
-     * @param starIndex index from which search starts.
-     * @return index of LatestTextComponent before startIndex.
-     */
-    private int getLatestTextComponentIndexBefore(int starIndex) {
-        View view = null;
-        for (int i = starIndex; i >= 0; i--) {
-            view = getChildAt(i);
-            if (view instanceof TextComponentItem)
-                return i;
-        }
-        return 0;
-    }
 
-    /**
-     * overloaded method for focusing view, it puts the cursor at specified position.
-     *
-     * @param view to be focused on.
-     */
-    private void setFocus(View view, int cursorPos) {
-        _activeView = view;
-        view.requestFocus();
-        if (view instanceof TextComponentItem) {
-            InputMethodManager mgr = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            mgr.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-            //move cursor
-            ((TextComponentItem) view).getInputBox().setSelection(cursorPos);
-            reportStylesOfFocusedView((TextComponentItem) view);
-        }
-    }
 
-    private void setActiveView(View view) {
-        _activeView = view;
-    }
-
-    /**
-     * adds link.
-     *
-     * @param text link text
-     * @param url  linking url.
-     */
-    public void addLink(String text, String url) {
-        if (_activeView instanceof TextComponentItem) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder
-                    .append(" <a href=\"")
-                    .append(url)
-                    .append("\">")
-                    .append(text)
-                    .append("</a> ");
-            ((TextComponentItem) _activeView).getInputBox().append(stringBuilder.toString());
-        }
-    }
-
-    /**
-     * changes the current text into blockquote.
-     */
-    public void changeToBlockquote() {
-        currentInputMode = MODE_PLAIN;
-        if (_activeView instanceof TextComponentItem) {
-            ((TextComponentItem) _activeView).setMode(currentInputMode);
-            ComponentTag componentTag = (ComponentTag) _activeView.getTag();
-            ((TextComponentModel) componentTag.getComponent()).setHeadingStyle(BLOCKQUOTE);
-            __textComponentVer.updateComponent(_activeView);
-        }
-        refreshViewOrder();
-    }
-
-    /**
-     * change the current insert mode to Ordered List Mode.
-     * Increasing numbers are used to denote each item.
-     */
-    public void changeToOLMode() {
-        currentInputMode = MODE_OL;
-        if (_activeView instanceof TextComponentItem) {
-            ((TextComponentItem) _activeView).setMode(currentInputMode);
-            ComponentTag componentTag = (ComponentTag) _activeView.getTag();
-            ((TextComponentModel) componentTag.getComponent()).setHeadingStyle(NORMAL);
-            __textComponentVer.updateComponent(_activeView);
-        }
-        refreshViewOrder();
-    }
-
-    /**
-     * change the current insert mode to UnOrdered List Mode.
-     * Circular filled bullets are used to denote each item.
-     */
-    public void changeToULMode() {
-        currentInputMode = MODE_UL;
-        if (_activeView instanceof TextComponentItem) {
-            ((TextComponentItem) _activeView).setMode(currentInputMode);
-            ComponentTag componentTag = (ComponentTag) _activeView.getTag();
-            ((TextComponentModel) componentTag.getComponent()).setHeadingStyle(NORMAL);
-            __textComponentVer.updateComponent(_activeView);
-        }
-        refreshViewOrder();
-    }
-
-    /**
-     * This method gets the suitable insert index using
-     * `checkInvalidateAndCalculateInsertIndex()` method.
-     * Prepares the ImageComponent and inserts it.
-     * Since the user might need to type further, it inserts new TextComponent below
-     * it.
-     *
-     * @param filePath uri of image to be inserted.
-     */
-    public void insertImage(String filePath) {
-        int insertIndex = checkInvalidateAndCalculateInsertIndex();
-        ImageComponentItemVer imageComponentItemVer = __imageComponentVer.getNewImageComponentItemVer();
-        //prepare tag
-        ImageComponentModel imageComponentModel = new ImageComponentModel();
-        ComponentTag imageComponentTag = ComponentMetadataHelper.getNewComponentTag(insertIndex);
-        imageComponentTag.setComponent(imageComponentModel);
-        imageComponentItemVer.setTag(imageComponentTag);
-        imageComponentItemVer.setImageInformation(filePath, "");
-        addView(imageComponentItemVer, insertIndex);
-        reComputeTagsAfter(insertIndex);
-        refreshViewOrder();
-        //add another text component below image
-        insertIndex++;
-        currentInputMode = MODE_PLAIN;
-        addTextComponent(insertIndex);
-    }
-
-    /**
-     * This method checks the current active/focussed view.
-     * If there is some text in it, then next insertion will take place below this
-     * view.
-     * Else the current focussed view will be removed and new view will inserted
-     * at its position.
-     *
-     * @return index of next insert.
-     */
-    private int checkInvalidateAndCalculateInsertIndex() {
-        if (_activeView == null)
-            return 0;
-        ComponentTag tag = (ComponentTag) _activeView.getTag();
-        int activeIndex = tag.getComponentIndex();
-        View view = getChildAt(activeIndex);
-        //check for TextComponentItem
-        if (view instanceof TextComponentItem) {
-            //if active text component has some texts.
-            if (((TextComponentItem) view).getInputBox().getText().length() > 0) {
-                //insert below it
-                return activeIndex + 1;
-            } else {
-                //remove current view
-                removeViewAt(activeIndex);
-                reComputeTagsAfter(activeIndex);
-                refreshViewOrder();
-                //insert at the current position.
-                return activeIndex;
-            }
-        }
-        return activeIndex + 1;
-    }
 
     /**
      * This method gets the suitable insert index using
