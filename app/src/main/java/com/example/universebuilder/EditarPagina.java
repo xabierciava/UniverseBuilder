@@ -30,6 +30,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -177,11 +178,19 @@ public class EditarPagina extends AppCompatActivity implements EditorControlBar.
                 item.setStyle((Integer) object.get("style"));
             }
             if(object.has("content")){
-                item.setContent((String) object.get("content"));
+                String content = (String) object.get("content");
+                content = content.replaceAll("<u0001>","\"");
+                content = content.replaceAll("<u0002>","\'");
+                item.setContent(content);
             }
             contentTypes.add(item);
         }
-        return new DraftModel(contentTypes);
+
+        if(contentTypes.isEmpty()){
+            return  new DraftModel();
+        }else {
+            return new DraftModel(contentTypes);
+        }
     }
 
     @Override
@@ -257,7 +266,8 @@ public class EditarPagina extends AppCompatActivity implements EditorControlBar.
         String titulo = "";
         if (chipGroup.getChildCount() > 0) {
             DraftModel dm = markDEditor.getDraft();
-            String json = new Gson().toJson(dm);
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            String json = gson.toJson(dm);
             System.out.println(json);
             listaEtiquetas = new ArrayList<>();
             for (int i = 0; i < chipGroup.getChildCount(); i++) {

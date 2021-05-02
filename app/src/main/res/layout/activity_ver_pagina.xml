@@ -4,6 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/naranja_claro"
     tools:context=".VerPagina">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.universebuilder.markeditor.MarkDVisor
+            android:id="@+id/visualizador"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

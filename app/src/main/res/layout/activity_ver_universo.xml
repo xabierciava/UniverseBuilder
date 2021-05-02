@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/Buscar"
         android:textColorHint="@color/fondos"
-        app:boxBackgroundColor="@color/coral"
-        app:boxStrokeColor="@color/fondos"
+        app:boxBackgroundColor="@color/turquesa"
+        app:boxStrokeColor="@color/turquesa"
         app:hintTextColor="@color/fondos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:maxLines="1"
+            android:inputType="textPersonName"
             android:textColor="@color/fondos" />
 
 

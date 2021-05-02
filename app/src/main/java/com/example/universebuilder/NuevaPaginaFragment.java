@@ -227,7 +227,7 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         String titulo = editTextTitulo.getText().toString();
         if (!titulo.equals("") && chipGroup.getChildCount()>0) {
             DraftModel dm = markDEditor.getDraft();
-            Gson gson = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
             String json = gson.toJson(dm);
             listaEtiquetas = new ArrayList<>();
             for (int i = 0; i < chipGroup.getChildCount(); i++) {

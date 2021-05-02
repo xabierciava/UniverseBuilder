@@ -39,25 +39,27 @@ public class DraftManager {
       view = markDEditor.getChildAt(i);
       if (view instanceof TextComponentItem) {
         //check mode
-        ((TextComponentItem) view).setText(((TextComponentItem) view).getContent().replaceAll("\"","'"));
 
+        String content = new String(((TextComponentItem) view).getContent());
+        content = content.replaceAll("\"","<u0001>");
+        content = content.replaceAll("\'","<u0002>");
         int mode = ((TextComponentItem) view).getMode();
         if (mode == MODE_PLAIN) {
           //check for styles {H1-H5 Blockquote Normal}
           componentTag = (ComponentTag) view.getTag();
           textStyle = ((TextComponentModel) componentTag.getComponent()).getHeadingStyle();
-          drafts.add(getPlainModel(textStyle, ((TextComponentItem) view).getContent()));
+          drafts.add(getPlainModel(textStyle, content));
         } else if (mode == MODE_UL) {
-          drafts.add(getUlModel(((TextComponentItem) view).getContent()));
+          drafts.add(getUlModel(content));
         } else if (mode == MODE_OL) {
-          drafts.add(getOlModel(((TextComponentItem) view).getContent()));
+          drafts.add(getOlModel(content));
         }
       } else if (view instanceof HorizontalDividerComponentItem) {
         drafts.add(getHRModel());
       } else if (view instanceof ImageComponentItem) {
         drafts.add(getImageModel(
          ((ImageComponentItem) view).getDownloadUrl(),
-         ((ImageComponentItem) view).getCaption().replaceAll("\"","'")
+         ((ImageComponentItem) view).getCaption().replaceAll("\"","<u0001>")
         ));
       }
     }

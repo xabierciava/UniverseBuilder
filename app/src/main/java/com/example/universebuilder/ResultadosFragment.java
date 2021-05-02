@@ -19,7 +19,6 @@ import java.util.List;
 
 import api.ApiInterface;
 import api.ServiceGenerator;
-import model.FichaUniverso;
 import model.FichaUniversoExplorar;
 import model.Universo;
 import retrofit2.Call;
@@ -90,8 +89,9 @@ public class ResultadosFragment extends Fragment implements ListAdapterExplorarU
             public void onResponse(Call<List<Universo>> call, Response<List<Universo>> response) {
                 if(response.isSuccessful()){
                     String idUsuario;
+                    assert response.body() != null;
                     listaUniversos.addAll(response.body());
-                    SharedPreferences prefs = getActivity().getSharedPreferences("sesion", Context.MODE_PRIVATE);
+                    SharedPreferences prefs = requireActivity().getSharedPreferences("sesion", Context.MODE_PRIVATE);
                     idUsuario = prefs.getString("id","");
                     ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
                     Call<List<String>> callFavs = apiInterface.getFavoritos(idUsuario);
