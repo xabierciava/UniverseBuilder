@@ -3,6 +3,7 @@ package com.example.universebuilder;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +73,8 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
     List<String> listaEtiquetas;
     InputMethodManager im;
     FrameLayout mainLayout;
+    private String m_Text = "";
+    AlertDialog.Builder builder;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -144,6 +148,7 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         editTextTitulo = view.findViewById(R.id.editTextTituloNueva);
         mainLayout = view.findViewById(R.id.frameNuevaPagina);
         im = (InputMethodManager) requireActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
+
     }
 
     private DraftModel getDraftContent() {
@@ -193,6 +198,8 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         }
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -205,7 +212,25 @@ public class NuevaPaginaFragment extends Fragment implements EditorControlBar.Ed
         }else if(requestCode == REQUEST_LINK){
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String id = data.getStringExtra("idPagina");
-                markDEditor.addLink("Escribe lo que quieras", id);
+                builder = new AlertDialog.Builder(requireContext(),R.style.AppCompatAlertDialogStyle);
+                builder.setTitle("Texto visible del link");
+
+                // Set up the input
+                final EditText input = new EditText(requireContext());
+                input.setBackgroundResource(R.color.fondos);
+                input.requestFocus();
+                input.setTextColor(getResources().getColor(R.color.naranja_claro));
+                builder.setView(input);
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                        markDEditor.addLink(m_Text, id);
+                    }
+                });
+                builder.show();
+
             }
         }
     }

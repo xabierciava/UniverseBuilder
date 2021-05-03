@@ -39,10 +39,7 @@ public class TextComponentVer {
      * @return new instance of TextComponent.
      */
     public TextComponentItemVer newTextComponent(final int mode) {
-        final TextComponentItemVer customInput = new TextComponentItemVer(mContext, mode);
-        final TextView et = customInput.getInputBox();
-
-        return customInput;
+        return new TextComponentItemVer(mContext, mode);
     }
 
     private boolean isSpaceCharacter(char ch) {

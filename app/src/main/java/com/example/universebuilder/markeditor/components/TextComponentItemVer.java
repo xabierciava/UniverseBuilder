@@ -1,6 +1,9 @@
 package com.example.universebuilder.markeditor.components;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +58,12 @@ public class TextComponentItemVer extends FrameLayout {
 
     public void setText(String content) {
         textView.setText(content);
+    }
+
+    public void setText(SpannableString content) {
+        textView.setText(content);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setHighlightColor(Color.TRANSPARENT);
     }
 
     public TextView getInputBox() {

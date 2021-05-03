@@ -4,4 +4,10 @@
         <item name="boxStrokeColor">@color/naranja_claro</item>
         <item name="android:textColorHint">@color/naranja_claro</item>
     </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/naranja_claro</item>
+        <item name="android:background">@color/fondos</item>
+        <item name="android:padding">10dp</item>
+    </style>
 </resources>

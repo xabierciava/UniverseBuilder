@@ -1,11 +1,20 @@
 package com.example.universebuilder.markeditor;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.example.universebuilder.VerPagina;
 import com.example.universebuilder.markeditor.components.HorizontalDividerComponent;
 import com.example.universebuilder.markeditor.components.HorizontalDividerComponentItem;
 import com.example.universebuilder.markeditor.components.ImageComponentItemVer;
@@ -22,21 +31,20 @@ import com.example.universebuilder.markeditor.utilities.DraftManager;
 import com.example.universebuilder.markeditor.utilities.RenderingUtilsVer;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.universebuilder.markeditor.Styles.TextComponentStyle.NORMAL;
 import static com.example.universebuilder.markeditor.components.TextComponentItem.MODE_PLAIN;
 
 public class MarkDVisor extends MarkDCore{
-    private static String serverUrl;
     private View _activeView;
-    private Context mContext;
-    private DraftManager draftManager;
     private TextComponentVer __textComponentVer;
     private ImageComponentVer __imageComponentVer;
     private HorizontalDividerComponent __horizontalComponent;
     private int currentInputMode;
     private RenderingUtilsVer renderingUtilsVer;
-    private MarkDEditor.EditorFocusReporter editorFocusReporter;
+    private MarkDVisor.EditorFocusReporter editorFocusReporter;
     private String startHintText;
     private int defaultHeadingType = NORMAL;
     private boolean isFreshEditor;
@@ -48,8 +56,7 @@ public class MarkDVisor extends MarkDCore{
     }
 
     private void init(Context context) {
-        this.mContext = context;
-        draftManager = new DraftManager();
+        DraftManager draftManager = new DraftManager();
         bulletGroupModels = new ArrayList<>();
         currentInputMode = MODE_PLAIN;
         __textComponentVer = new TextComponentVer(context);
@@ -69,6 +76,7 @@ public class MarkDVisor extends MarkDCore{
         setHeading(defaultHeadingType);
     }
 
+
     /**
      * adds new TextComponent.
      *
@@ -78,11 +86,6 @@ public class MarkDVisor extends MarkDCore{
         TextComponentItemVer textComponentItemVer = __textComponentVer.newTextComponent(currentInputMode);
         //prepare tag
         TextComponentModel textComponentModel = new TextComponentModel();
-        if (insertIndex == 0) {
-            if (startHintText != null && isFreshEditor) {
-                textComponentItemVer.setHintText(startHintText);
-            }
-        }
         ComponentTag componentTag = ComponentMetadataHelper.getNewComponentTag(insertIndex);
         componentTag.setComponent(textComponentModel);
         textComponentItemVer.setTag(componentTag);
@@ -172,6 +175,8 @@ public class MarkDVisor extends MarkDCore{
         this.currentInputMode = currentInputMode;
     }
 
+
+
     /**
      * adds new TextComponent with pre-filled text.
      *
@@ -184,7 +189,40 @@ public class MarkDVisor extends MarkDCore{
         ComponentTag componentTag = ComponentMetadataHelper.getNewComponentTag(insertIndex);
         componentTag.setComponent(textComponentModel);
         textComponentItemVer.setTag(componentTag);
-        textComponentItemVer.setText(content);
+        Pattern p = Pattern.compile("<a href=\"(.*?)\">(.*?)</a>");
+        Matcher m = p.matcher(content);
+        StringBuffer sb = new StringBuffer(content.length());
+        SpannableString ss = new SpannableString(sb.toString());
+        Boolean matched = false;
+        while(m.find()){
+            matched=true;
+            String link = m.group(1);
+            String texto = m.group(2);
+            m.appendReplacement(sb,Matcher.quoteReplacement(texto));
+            m.appendTail(sb);
+            ss = new SpannableString(sb.toString());
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View textView) {
+                    Intent intent = new Intent(textView.getContext(), VerPagina.class);
+                    intent.putExtra("idPagina",link);
+                    textView.getContext().startActivity(intent);
+                }
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    super.updateDrawState(ds);
+                    ds.setUnderlineText(false);
+                }
+            };
+            ss.setSpan(clickableSpan, m.start(), m.start()+texto.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ForegroundColorSpan fcs = new ForegroundColorSpan(Color.BLUE);
+            ss.setSpan(fcs, m.start(), m.start()+texto.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        }
+        if(matched) {
+            textComponentItemVer.setText(ss);
+        }else{
+            textComponentItemVer.setText(content);
+        }
         addView(textComponentItemVer, insertIndex);
         __textComponentVer.updateComponent(textComponentItemVer);
         setFocus(textComponentItemVer);
@@ -205,14 +243,14 @@ public class MarkDVisor extends MarkDCore{
      * @param filePath uri of image to be inserted.
      */
     public void insertImage(int insertIndex, String filePath, boolean uploaded, String caption) {
-        ImageComponentItemVer imageComponentItem = __imageComponentVer.getNewImageComponentItemVer();
+        ImageComponentItemVer imageComponentItemVer = __imageComponentVer.getNewImageComponentItemVer();
         //prepare tag
         ImageComponentModel imageComponentModel = new ImageComponentModel();
         ComponentTag imageComponentTag = ComponentMetadataHelper.getNewComponentTag(insertIndex);
         imageComponentTag.setComponent(imageComponentModel);
-        imageComponentItem.setTag(imageComponentTag);
-        imageComponentItem.setImageInformation(filePath, caption);
-        addView(imageComponentItem, insertIndex);
+        imageComponentItemVer.setTag(imageComponentTag);
+        imageComponentItemVer.setImageInformation(filePath, caption);
+        addView(imageComponentItemVer, insertIndex);
         reComputeTagsAfter(insertIndex);
     }
 
@@ -244,5 +282,10 @@ public class MarkDVisor extends MarkDCore{
             setFocus(horizontalDividerComponentItem);
         }
         refreshViewOrder();
+    }
+
+
+    public interface EditorFocusReporter {
+        void onFocusedViewHas(int mode, int textComponentStyle);
     }
 }

@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -64,6 +65,8 @@ public class EditarPagina extends AppCompatActivity implements EditorControlBar.
     InputMethodManager im;
     RelativeLayout mainLayout;
     ScrollView scrollEditor;
+    private String m_Text = "";
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class EditarPagina extends AppCompatActivity implements EditorControlBar.
         mainLayout = findViewById(R.id.RelativeEditarPagina);
         scrollEditor = findViewById(R.id.scrollEditorEditar);
         im = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
+
         cargarDatos();
     }
 
@@ -244,7 +248,24 @@ public class EditarPagina extends AppCompatActivity implements EditorControlBar.
         }else if(requestCode == REQUEST_LINK){
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String id = data.getStringExtra("idPagina");
-                markDEditor.addLink("Escribe lo que quieras", id);
+                builder = new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle);
+                builder.setTitle("Texto visible del link");
+
+                // Set up the input
+                final EditText input = new EditText(this);
+                input.setBackgroundResource(R.color.fondos);
+                input.requestFocus();
+                input.setTextColor(getResources().getColor(R.color.naranja_claro));
+                builder.setView(input);
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                        markDEditor.addLink(m_Text, id);
+                    }
+                });
+                builder.show();
             }
         }
     }

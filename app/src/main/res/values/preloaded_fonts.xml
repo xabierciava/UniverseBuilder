@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/arvo</item>
-        <item>@font/coming_soon</item>
-        <item>@font/flamenco</item>
         <item>@font/roboto_slab</item>
     </array>
 </resources>
