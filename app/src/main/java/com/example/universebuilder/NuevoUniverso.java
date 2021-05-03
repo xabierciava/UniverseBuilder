@@ -31,6 +31,14 @@ import retrofit2.Response;
 
 public class NuevoUniverso extends AppCompatActivity {
 
+    final int DRAGON=1;
+    final int TERROR=2;
+    final int NAVECITA=3;
+    final int SUPERMAN=4;
+    final int MUNDODISCO=5;
+    final int EIFFEL=6;
+
+
     TextInputLayout textFieldLabels;
     EditText editTextLabels;
     ChipGroup chipGroup;
@@ -39,8 +47,8 @@ public class NuevoUniverso extends AppCompatActivity {
     EditText editTextNombre, editTextDescripcion;
     SwitchMaterial switchMaterial;
     List<String> listaEtiquetas;
-    ImageView iconoDragon, iconoTerror;
-    FrameLayout frameIconoDragon, frameIconoTerror;
+    ImageView iconoDragon, iconoTerror, iconoMundodisco, iconoSuperman, iconoEiffel, iconoNavecita;
+    FrameLayout frameIconoDragon, frameIconoTerror, frameIconoMundodisco, frameIconoSuperman, frameIconoEiffel, frameIconoNavecita;
     int icono;
 
     @Override
@@ -58,8 +66,16 @@ public class NuevoUniverso extends AppCompatActivity {
         switchMaterial = findViewById(R.id.switchMaterialEditar);
         iconoDragon = findViewById(R.id.iconoDragon);
         iconoTerror = findViewById(R.id.iconoCthulhu);
+        iconoEiffel = findViewById(R.id.iconoEiffel);
+        iconoMundodisco = findViewById(R.id.iconoMundodisco);
+        iconoSuperman = findViewById(R.id.iconoSuperman);
+        iconoNavecita = findViewById(R.id.iconoNavecita);
         frameIconoDragon = findViewById(R.id.frameIconoDragon);
         frameIconoTerror = findViewById(R.id.frameIconoCthulhu);
+        frameIconoEiffel = findViewById(R.id.frameIconoEiffel);
+        frameIconoMundodisco = findViewById(R.id.frameIconoMundodisco);
+        frameIconoSuperman = findViewById(R.id.frameIconoSuperman);
+        frameIconoNavecita = findViewById(R.id.frameIconoNavecita);
         listaEtiquetas = new ArrayList<>();
 
         textViewAviso.setVisibility(View.INVISIBLE);
@@ -81,18 +97,78 @@ public class NuevoUniverso extends AppCompatActivity {
         iconoDragon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                icono = 1;
+                icono = DRAGON;
                 frameIconoDragon.setBackgroundResource(R.color.naranja_claro);
                 frameIconoTerror.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoEiffel.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoMundodisco.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoNavecita.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoSuperman.setBackgroundResource(R.color.gris_oscuro);
             }
         });
 
         iconoTerror.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                icono = 2;
+                icono = TERROR;
                 frameIconoTerror.setBackgroundResource(R.color.naranja_claro);
                 frameIconoDragon.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoEiffel.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoMundodisco.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoNavecita.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoSuperman.setBackgroundResource(R.color.gris_oscuro);
+            }
+        });
+
+        iconoNavecita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icono = NAVECITA;
+                frameIconoTerror.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoDragon.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoEiffel.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoMundodisco.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoNavecita.setBackgroundResource(R.color.naranja_claro);
+                frameIconoSuperman.setBackgroundResource(R.color.gris_oscuro);
+            }
+        });
+
+        iconoSuperman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icono = SUPERMAN;
+                frameIconoTerror.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoDragon.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoEiffel.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoMundodisco.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoNavecita.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoSuperman.setBackgroundResource(R.color.naranja_claro);
+            }
+        });
+
+        iconoMundodisco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icono = MUNDODISCO;
+                frameIconoTerror.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoDragon.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoEiffel.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoMundodisco.setBackgroundResource(R.color.naranja_claro);
+                frameIconoNavecita.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoSuperman.setBackgroundResource(R.color.gris_oscuro);
+            }
+        });
+
+        iconoEiffel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icono = EIFFEL;
+                frameIconoTerror.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoDragon.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoEiffel.setBackgroundResource(R.color.naranja_claro);
+                frameIconoMundodisco.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoNavecita.setBackgroundResource(R.color.gris_oscuro);
+                frameIconoSuperman.setBackgroundResource(R.color.gris_oscuro);
             }
         });
     }

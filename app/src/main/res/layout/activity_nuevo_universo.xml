@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameIconoDragon"
+            app:layout_constraintTop_toBottomOf="@+id/frameIconoSuperman"
             app:layout_constraintVertical_bias="0.205" />
 
         <TextView
@@ -220,7 +220,7 @@
             android:background="@color/gris_oscuro"
             android:padding="3dp"
             app:layout_constraintStart_toStartOf="@+id/switchMaterialEditar"
-            app:layout_constraintTop_toBottomOf="@+id/switchMaterialEditar">
+            app:layout_constraintTop_toBottomOf="@+id/imageView8">
 
             <ImageView
                 android:id="@+id/iconoDragon"
@@ -251,6 +251,96 @@
                 android:focusable="true"
                 app:srcCompat="@drawable/cthulhu" />
         </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameIconoNavecita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/gris_oscuro"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="@+id/frameIconoDragon"
+            app:layout_constraintTop_toBottomOf="@+id/frameIconoDragon">
+
+            <ImageView
+                android:id="@+id/iconoNavecita"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/gris_claro"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/navecita" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameIconoEiffel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/gris_oscuro"
+            android:padding="3dp"
+            app:layout_constraintEnd_toEndOf="@+id/frameIconoCthulhu"
+            app:layout_constraintTop_toBottomOf="@+id/frameIconoDragon">
+
+            <ImageView
+                android:id="@+id/iconoEiffel"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/gris_claro"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/tugueifel" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameIconoSuperman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/gris_oscuro"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="@+id/frameIconoNavecita"
+            app:layout_constraintTop_toBottomOf="@+id/frameIconoNavecita">
+
+            <ImageView
+                android:id="@+id/iconoSuperman"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/gris_claro"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/superman" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameIconoMundodisco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/gris_oscuro"
+            android:padding="3dp"
+            app:layout_constraintEnd_toEndOf="@+id/frameIconoEiffel"
+            app:layout_constraintTop_toBottomOf="@+id/frameIconoNavecita">
+
+            <ImageView
+                android:id="@+id/iconoMundodisco"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/gris_claro"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/mundodisco" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switchMaterialEditar"
+            app:srcCompat="@drawable/eligeicono" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

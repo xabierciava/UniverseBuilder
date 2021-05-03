@@ -16,6 +16,13 @@ import java.util.List;
 import model.FichaUniverso;
 
 public class ListAdapterUniversos extends RecyclerView.Adapter<ListAdapterUniversos.ViewHolder> {
+
+    final int DRAGON=1;
+    final int TERROR=2;
+    final int NAVECITA=3;
+    final int SUPERMAN=4;
+    final int MUNDODISCO=5;
+    final int EIFFEL=6;
     private List<FichaUniverso> mData;
     private LayoutInflater mInflater;
     private Context context;
@@ -68,11 +75,23 @@ public class ListAdapterUniversos extends RecyclerView.Adapter<ListAdapterUniver
             universo.setText(item.getNombre());
             descripcion.setText(item.getDescripcion());
             switch(item.getIcono()){
-                case 1:
+                case DRAGON:
                     iconImage.setImageResource(R.drawable.dragon);
                     break;
-                case 2:
+                case TERROR:
                     iconImage.setImageResource(R.drawable.cthulhu);
+                    break;
+                case NAVECITA:
+                    iconImage.setImageResource(R.drawable.navecita);
+                    break;
+                case SUPERMAN:
+                    iconImage.setImageResource(R.drawable.superman);
+                    break;
+                case MUNDODISCO:
+                    iconImage.setImageResource(R.drawable.mundodisco);
+                    break;
+                case EIFFEL:
+                    iconImage.setImageResource(R.drawable.tugueifel);
                     break;
             }
 
