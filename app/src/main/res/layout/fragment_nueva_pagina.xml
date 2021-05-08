@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
 
-        <com.example.universebuilder.markeditor.EditorControlBar
+        <com.universes.universebuilder.markeditor.EditorControlBar
             android:id="@+id/controlBar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -117,7 +117,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
 
-                    <com.example.universebuilder.markeditor.MarkDEditor
+                    <com.universes.universebuilder.markeditor.MarkDEditor
                         android:id="@+id/mdEditor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

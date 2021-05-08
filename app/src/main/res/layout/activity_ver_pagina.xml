@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.universebuilder.markeditor.MarkDVisor
+        <com.universes.universebuilder.markeditor.MarkDVisor
             android:id="@+id/visualizador"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

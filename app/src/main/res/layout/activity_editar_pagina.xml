@@ -10,7 +10,7 @@
     tools:context=".EditarPagina">
 
 
-    <com.example.universebuilder.markeditor.EditorControlBar
+    <com.universes.universebuilder.markeditor.EditorControlBar
         android:id="@+id/controlBarEditar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -110,7 +110,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <com.example.universebuilder.markeditor.MarkDEditor
+                <com.universes.universebuilder.markeditor.MarkDEditor
                     android:id="@+id/mdEditorEditar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

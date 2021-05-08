@@ -31,6 +31,14 @@
         android:textColor="@color/fondos"
         android:textColorHint="@color/fondos"
         android:textSize="14sp" />
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/image_uploading_progress_bar_ver"
+        android:background="@drawable/image_uploading_progress_bar"
+        android:layout_centerInParent="true"
+        android:layout_width="48dp"
+        android:padding="4dp"
+        android:layout_height="48dp" />
 
 
 

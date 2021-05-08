@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.universebuilder">
+    package="com.universes.universebuilder">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UniverseBuilder">
-        <activity android:name=".VerPagina"></activity>
-        <activity android:name=".VerUniverso" />
-        <activity android:name=".ElegirPagina" />
-        <activity android:name=".EditarPagina" />
-        <activity android:name=".PantallaCarga">
+        <activity android:name="com.universes.universebuilder.VerPagina"></activity>
+        <activity android:name="com.universes.universebuilder.VerUniverso" />
+        <activity android:name="com.universes.universebuilder.ElegirPagina" />
+        <activity android:name="com.universes.universebuilder.EditarPagina" />
+        <activity android:name="com.universes.universebuilder.PantallaCarga">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,19 +25,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NuevoUniverso"
+            android:name="com.universes.universebuilder.NuevoUniverso"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".EditarUniverso" />
-        <activity android:name=".ListaExplorar" />
-        <activity android:name=".ListaMisMundos" />
-        <activity android:name=".MenuPrincipal" />
+        <activity android:name="com.universes.universebuilder.EditarUniverso" />
+        <activity android:name="com.universes.universebuilder.ListaExplorar" />
+        <activity android:name="com.universes.universebuilder.ListaMisMundos" />
+        <activity android:name="com.universes.universebuilder.MenuPrincipal" />
         <activity
-            android:name=".Entrar"
+            android:name="com.universes.universebuilder.Entrar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Registrar"
+            android:name="com.universes.universebuilder.Registrar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.universes.universebuilder.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
